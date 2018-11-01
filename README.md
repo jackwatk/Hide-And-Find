@@ -39,31 +39,25 @@ Game.js
 
 Game() {
 	this.gameIsOver
-	This.canvasElement
-This.width
-This.height
-This.Lives
-this.initialPosition
-player = new Player()
+	this.canvasElement
+	this.width
+	this.height
+	this.Lives
+	this.initialPosition
+	this.ctx(‘2d’)
+	player = new Player()
+	computerPlayer = new ComputerPlayer;
+	poles = new Pole()
+		
 }
 Game.prototype.start(){
-buildDOM()
-
-This.canvasElement
-This.width
-This.height
-This.Lives
-this.initialPosition
-this.ctx(‘2d’)
-player = new Player()
-computerPlayer = new Player;
-poles = new Pole()
-addEventListener
+	buildDOM()
+	addEventListener
 this.startLoop()
 )}
 
 Game.prototype.startLoop(){
-loop(){
+	loop(){
 	
 
 //update all{
@@ -91,6 +85,7 @@ loop(){
 
 // clear all function
 	ctx.clearRect();
+	
 //draw
 	this.player.draw()
 	this.computerPlayers.draw()
@@ -114,12 +109,12 @@ Player(canvasElement, lives){
 	This.Direction
 }
 
-Player.prototype.update()
-Player.prototype.draw()
-Player.prototype.SetDirection()
-Player.prototype.collidedWithPlayer()
-Player.prototype.collidedWithComputerPlayer()
-Player.prototype.collidedWithPole()
+	Player.prototype.update()
+	Player.prototype.draw()
+	Player.prototype.SetDirection()
+	Player.prototype.collidedWithPlayer()
+	Player.prototype.collidedWithComputerPlayer()
+	Player.prototype.collidedWithPole()
 
 ```
 Computer Player.js
@@ -135,12 +130,12 @@ ComputerPlayer(canvasElement, x, speed) {
 
 }
 
-Computerplayer.prototype.update()
-randomiseDirection()
-randomiseMovement
+	Computerplayer.prototype.update()
+	randomiseDirection()
+	randomiseMovement
 
-Computerplayer.prototype.draw()
-Computerplayer.prototype.isInScreen()
+	Computerplayer.prototype.draw()
+	Computerplayer.prototype.isInScreen()
 ```
 Poles
 ```
@@ -152,9 +147,9 @@ Pole(CanvasElement){
 	This.canvasElement
 }
 
-Pole.prototype.update()
-Pole.prototype.draw()
-Pole.prototype.playSound()
+	Pole.prototype.update()
+	Pole.prototype.draw()
+	Pole.prototype.playSound()
 
 ```
 
