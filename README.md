@@ -68,10 +68,12 @@ loop(){
 	this.pole.update()
 
 	
-//check if player collided with a computer player
+//check 
+	if player collided with a computer player
 	this.checkIfPlayerCollidedWithComputerPlayer()
 
-//check if player collided with a player
+//check 
+	if player collided with a player
 	this.checkIfPlayerCollidedWithPlayer()
 
 //check if pole collided with a player
@@ -96,10 +98,10 @@ loop(){
 }
 }
 
-
+```
 //Player.js
 
-Player(canvasElement, lives){
+	Player(canvasElement, lives){
 	This.x
 	This.y
 	This.canvasElement
@@ -108,46 +110,49 @@ Player(canvasElement, lives){
 	This.Direction
 }
 
-Player.prototype.update()
-Player.prototype.draw()
-Player.prototype.SetDirection()
-Player.prototype.collidedWithPlayer()
-Player.prototype.collidedWithComputerPlayer()
-Player.prototype.collidedWithPole()
+	Player.prototype.update()
+	Player.prototype.draw()
+	Player.prototype.SetDirection()
+	Player.prototype.collidedWithPlayer()
+	Player.prototype.collidedWithComputerPlayer()
+	Player.prototype.collidedWithPole()
+```
 
-
+```
 //Computer Player
 
-ComputerPlayer(canvasElement, x, speed) {
-	This.x // to be randomised
-	This.y // to be randomised
-	This.size //same as player
-	This.canvasElement
-	This.ctx
-	This.direction // to be randomised
-	This.speed
+	ComputerPlayer(canvasElement, x, speed) {
+		This.x // to be randomised
+		This.y // to be randomised
+		This.size //same as player
+		This.canvasElement
+		This.ctx
+		This.direction // to be randomised
+		This.speed
 
-}
+					}
 
-Computerplayer.prototype.update()
-randomiseDirection()
-randomiseMovement
+	Computerplayer.prototype.update()
+	randomiseDirection()
+	randomiseMovement
 
-Computerplayer.prototype.draw()
-Computerplayer.prototype.isInScreen()
-
+	Computerplayer.prototype.draw()
+	Computerplayer.prototype.isInScreen()
+```
+	
+```
 Poles
 
-Pole(CanvasElement){
-	This.x
-	This.y
-	This.size
-	This.canvasElement
-}
+	Pole(CanvasElement){
+		This.x
+		This.y
+		This.size
+		This.canvasElement
+	}
 
-Pole.prototype.update()
-Pole.prototype.draw()
-Pole.prototype.playSound()
+	Pole.prototype.update()
+	Pole.prototype.draw()
+	Pole.prototype.playSound()
 
 ```
 
