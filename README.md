@@ -1,4 +1,3 @@
-# Hide-And-Find
 Hide And Find
 
 ## Description
@@ -27,7 +26,7 @@ Mobile version
 
 ## Data structure
 Classes and methods definition.
-
+```
 Game.js
 
 Game() {
@@ -142,7 +141,7 @@ Pole.prototype.update()
 Pole.prototype.draw()
 Pole.prototype.playSound()
 
-
+```
 
 
 
