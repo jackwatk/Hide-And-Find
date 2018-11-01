@@ -39,6 +39,12 @@ Game.js
 
 Game() {
 	this.gameIsOver
+	This.canvasElement
+This.width
+This.height
+This.Lives
+this.initialPosition
+player = new Player()
 }
 Game.prototype.start(){
 buildDOM()
@@ -48,26 +54,25 @@ This.width
 This.height
 This.Lives
 this.initialPosition
+this.ctx(‘2d’)
 player = new Player()
 computerPlayer = new Player;
+poles = new Pole()
 addEventListener
 this.startLoop()
 )}
 
 Game.prototype.startLoop(){
-ctx(‘2d’)
 loop(){
-	//create computer Players
-	computerPlayers = new ComputerPlayer()
-	//create poles
-	poles = new Pole()
+	
 
-	//update positions
+//update all{
 	this.player.update()
 	this.computerPlayer.update()
 	this.pole.update()
-
 	
+
+//colideCheckerall
 //check if player collided with a computer player
 	this.checkIfPlayerCollidedWithComputerPlayer()
 
@@ -82,8 +87,9 @@ loop(){
 
 //check if computerPlayer is near edge and get them to turn around
 	this.compuerPlayer.filter(isInScreen))
+	}
 
-// erase canvas
+// clear all function
 	ctx.clearRect();
 //draw
 	this.player.draw()
