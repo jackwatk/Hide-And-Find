@@ -11,13 +11,21 @@ As a MVP I will build the game with the objective of finding the right character
 ## Backlog
 
 Extra Player
+
 Poles - Collisions - Play Sound
+
 computerPlayer falls over if incorrectly stabbed
+
 Player can use Smokebomb to avoid detection
+
 Animation - sprite - changes when walk or attack - also plays sound
+
 Timer
+
 Enter Name - on splash screen
+
 Sound affects - on attack, fall down, pole walk through, and mystery reveal
+
 Light up where winner was before changing screen
 Mobile version
 
@@ -107,6 +115,7 @@ Player.prototype.collidedWithPlayer()
 Player.prototype.collidedWithComputerPlayer()
 Player.prototype.collidedWithPole()
 
+
 //Computer Player
 
 ComputerPlayer(canvasElement, x, speed) {
@@ -160,106 +169,198 @@ Definition of the different states and their transition (transition functions)
 - gameoverScreen - reveals where the winner was in the background, then fades in the winning text.
 
 Main.js
+
 SplashScreen
-buildSplash() 
+
+buildSplash()
+
 destroySplash() 
+
 addEventListener(-build GameScreen())
+
 GameScreen
+
 buildGameScreen()
+
 create new Game()
+
 game.start()
+
 destroyGameScreen()
+
 GameOver
+
 buildGameOverScreen()
+
 destroyGameOverScreen()
+
 addEventListener(-buildSplash())
+
 
 
 ## Task
 Task definition in order of priority
 
 Create Files
+
 Repo & Git
+
 Build Main
+
 3 States Transitions
+
 Build Game
+
 checkIfGameOver
+
 Build Loop
+
 Build Player
+
 Build ComputerPlayer
+
 Move Player
+
 Add Random Movement to ComputerPlayer
+
 1 ComputerPlayer moving randomly around
+
 ComputerPlayers moving randimly around
+
 Border Collisons
+
 Collisons between computerPlayer and Player
+
 Testing
+
 
 List of Functions
 Game
+
 start()
+
 buildDom()
+
 getCanvasContext()
+
 startLoop()
+
 Loop()
+
 UpdateAll()
+
 ClearAll()
+
 DrawAll()
+
 Player
+
 ComputerPlayer
+
 Pole
+
 CanvasElement
+
 Initial Position
+
 checkCollisonBorder()
+
 checkCollisonWithPlayer()
+
 checkCollisionWithPole()
+
 checkCollisionWithComputerPlayer()
+
 endGame()
+
 onGameOverCallback()
 
+
 Player
+
 update();
+
 draw();
+
 setDirection();
+
 collidesWithComputerPlayer();
+
 checkCollisionwithComputerPlayer();
+
 collidesWithPole();
+
 checkCollisionwithPole();
+
 collidesWithPlayer();
+
 checkCollisionwithPlayer();
+
 X:
+
 Y:
+
 Etx:
+
 canvasElement
+
 Speed
+
 Direction
+
 IsInCanvas()
 
+
 ComputerPlayer
+
 update();
+
 draw();
+
 setDirection();
+
 randomlyMove();
+
 collidesWithPlayer();
+
 checkCollisionwithPlayer();
+
 X:
+
 Y:
+
 Etx:
+
 canvasElement
+
 Speed
+
 Direction
+
 IsInCanvas()
+
 Poles
+
 update();
+
 draw();
+
 playSound();
+
 collidesWithPlayer();
+
 checkCollisionwithPlayer();
+
 X:
+
 Y:
+
 Etx:
+
 canvasElement
+
 IsInCanvas()
+
 
 
 
