@@ -119,9 +119,10 @@ Player(canvasElement, lives){
 ```
 Computer Player.js
 ```
-ComputerPlayer(canvasElement, x, speed) {
+ComputerPlayer(canvasElement, speed) {
+	function randomiseStartLocation(
 	This.x // to be randomised
-	This.y // to be randomised
+	This.y // to be randomised)
 	This.size //same as player
 	This.canvasElement
 	This.ctx
@@ -137,7 +138,7 @@ ComputerPlayer(canvasElement, x, speed) {
 	Computerplayer.prototype.draw()
 	Computerplayer.prototype.isInScreen()
 ```
-Poles
+Poles(backlog)
 ```
 
 Pole(CanvasElement){
@@ -235,6 +236,7 @@ Collisons between computerPlayer and Player
 
 Testing
 
+Lives
 
 List of Functions
 Game
