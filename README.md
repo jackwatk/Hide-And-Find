@@ -234,7 +234,7 @@ Collisons between computerPlayer and Player
 Testing
 
 
-List of Functions
+## List Of Functions
 Game
 
 start()
