@@ -14,7 +14,7 @@ function main(){
     var startButton;
     var restartButton;
     var quitButton;
-    
+    var game = new Game();
     buildSplash();
     function buildSplash() {
         splashScreen =  buildDom(
@@ -44,12 +44,16 @@ function main(){
       </main>`)
 
         document.body.append(gameScreen);
+        //var game = new Game();
+        game.start();
         quitButton = document.querySelector('button');
         quitButton.addEventListener('click',destroyGameScreen);
     }
 
     function destroyGameScreen(){
         gameScreen.remove();
+        debugger;
+        game.gameIsOver = true;
         buildGameOverScreen();
     }
 
