@@ -107,7 +107,6 @@ Player.prototype.collidedWithPlayer()
 Player.prototype.collidedWithComputerPlayer()
 Player.prototype.collidedWithPole()
 
-
 //Computer Player
 
 ComputerPlayer(canvasElement, x, speed) {
