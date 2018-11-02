@@ -14,18 +14,34 @@ function Game() {
 console.log("linked Game");
 
 Game.prototype.start = function() {
+    this.gameIsOver = false;
     this.startLoop();
 
 } 
-Game.prototype.startLoop = function(){
 
-    console.log("im looping");
-    
 
-     }
 
-Game.prototype.gameIsOver = function(){
+Game.prototype.startLoop = function() {
+    //player instance
+    //enemy instance
+    //get context
+
+    //button handling for player
+
+    var loop = function() {
+  
+     console.log("hi there, im a frame");
+  
+      if (!this.gameIsOver) {
+        requestAnimationFrame(loop);
+      }
+  
+    }.bind(this);
+  
+    loop();
+  }
+
+  Game.prototype.gameIsOver = function(){
     this.gameIsOver = true;
     console.log("game over");
 }
-
