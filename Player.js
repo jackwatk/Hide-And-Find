@@ -1,12 +1,14 @@
 'use strict';
 
-function Player(){
+function Player(canvasElement, lives){
     this.x = 0
 	this.y = 0
-	this.canvasElement;
-	this.ctx
-	this.speed
-	this.Direction
+    this.canvasElement = canvasElement;
+    this.size = 30;
+    this.lives = lives;
+	this.ctx = this.canvasElement.getContext('2d');
+	this.speed;
+	this.Direction;
 }
 
 Player.prototype.update = function(){
@@ -14,7 +16,8 @@ Player.prototype.update = function(){
 }
 
 Player.prototype.draw = function(){
-    console.log("Player Draw")
+    console.log("Player Draw");
+    this.ctx = fillRect(this.x,this.y, this.size);
 }
 
 Player.prototype.setDirection = function(){

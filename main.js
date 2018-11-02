@@ -3,6 +3,7 @@ console.log("linked");
 function buildDom(html) {
     var div = document.createElement('div');
     div.innerHTML = html;
+    // increase children number if you want more divs declared later
     return div.children[0];
 }
 function main(){
@@ -52,7 +53,6 @@ function main(){
     function destroyGameScreen(){
         gameScreen.remove();
         game.gameIsOver = true;
-        console.log("game is over");
         buildGameOverScreen();
     }
 
