@@ -18,7 +18,7 @@ Game.prototype.start = function() {
     this.gameIsOver = false;
     this.startLoop();
     this.ctx = this.canvasElement.getContext('2d');
-    this.player = new Player(this.canvasElement, this.initialPosition);
+    
 
 } 
 
@@ -33,14 +33,26 @@ Game.prototype.startLoop = function() {
     this.handleKey = function(event) {
         if (event.key === 'ArrowUp' || event.key === "w") {
         console.log("up");
+            this.player.y--
         this.player.setDirection(-1);
         } else if (event.key === 'ArrowDown' || event.key === "s") {
         console.log("down");
+            this.player.y++
         this.player.setDirection(1);
+        }
+        else if (event.key === 'ArrowLeft' || event.key === "a") {
+            console.log("left");
+                this.player.x--
+            this.player.setDirection(1);
+            }
+        else if (event.key === 'ArrowRight' || event.key === "d"){
+            console.log("right");
+                this.player.x++
+            this.player.setDirection(-1);
         }
     }.bind(this)
     
-    document.addEventListener('keyup', this.handleKey);
+    document.addEventListener('keydown', this.handleKey);
  
    
 
@@ -49,6 +61,7 @@ Game.prototype.startLoop = function() {
      //console.log(".");
         this.drawAll();
         this.updateAll();
+        this.clearAll();
         
        
 
@@ -79,11 +92,7 @@ Game.prototype.updateAll = function(){
 
   
   Game.prototype.clearAll = function(){
-    //player
-
-    //computer Players
-
-    //poles
+   // this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
   }
   
   Game.prototype.onGameOverCallBack = function(callback){
