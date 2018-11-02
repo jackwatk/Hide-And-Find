@@ -14,7 +14,7 @@ function main(){
     var startButton;
     var restartButton;
     var quitButton;
-    var game = new Game();
+
     buildSplash();
     function buildSplash() {
         splashScreen =  buildDom(
@@ -44,16 +44,20 @@ function main(){
       </main>`)
 
         document.body.append(gameScreen);
+        var canvasElement = document.querySelector('canvas')
         //var game = new Game();
+        var game = new Game(canvasElement);
         game.start();
         quitButton = document.querySelector('button');
         quitButton.addEventListener('click',destroyGameScreen);
+        
+        game.onGameOverCallBack(destroyGameScreen);
     }
 
     function destroyGameScreen(){
         gameScreen.remove();
-        game.gameIsOver = true;
         buildGameOverScreen();
+
     }
 
     function buildGameOverScreen(){
@@ -77,4 +81,3 @@ function main(){
 }
 
 window.addEventListener('load', main);
-debugger;
