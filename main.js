@@ -52,6 +52,7 @@ function main(){
     function destroyGameScreen(){
         gameScreen.remove();
         game.gameIsOver = true;
+        console.log("game is over");
         buildGameOverScreen();
     }
 

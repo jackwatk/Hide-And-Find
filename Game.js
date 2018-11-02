@@ -41,7 +41,4 @@ Game.prototype.startLoop = function() {
     gameLoop();
   }
 
-  Game.prototype.gameIsOver = function(){
-    this.gameIsOver = true;
-    console.log("game over");
-}
+  
