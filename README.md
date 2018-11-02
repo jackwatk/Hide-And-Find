@@ -104,6 +104,8 @@ Player(canvasElement, lives){
 	This.x
 	This.y
 	This.canvasElement
+	this.size
+	this.lives
 	This.etx
 	This.speed
 	This.Direction
