@@ -28,17 +28,17 @@ Game.prototype.startLoop = function() {
 
     //button handling for player
 
-    var loop = function() {
+    var gameLoop = function() {
   
      console.log("hi there, im a frame");
   
       if (!this.gameIsOver) {
-        requestAnimationFrame(loop);
+        requestAnimationFrame(gameLoop);
       }
   
     }.bind(this);
   
-    loop();
+    gameLoop();
   }
 
   Game.prototype.gameIsOver = function(){
