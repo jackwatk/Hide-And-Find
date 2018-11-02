@@ -18,13 +18,13 @@ Game.prototype.start = function() {
 
 } 
 Game.prototype.startLoop = function(){
-    
+
     console.log("im looping");
     
 
      }
 
-Game.prototype.gameIsOver= function(){
+Game.prototype.gameIsOver = function(){
     this.gameIsOver = true;
     console.log("game over");
 }
