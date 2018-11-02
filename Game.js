@@ -1,12 +1,14 @@
+'use strict';
 function Game(canvasElement) {
 	this.gameIsOver = false;
-	this.canvasElement = canvasElement
-    this.lives
+    this.canvasElement = canvasElement;
+    this.ctx = this.canvasElement.getContext('2d');    
+    this.lives;
         //initalPosition to be randomised later
 	this.initialPosition = {
         x:100,
         y:100
-    }
+    };
     this.player = null;
 	this.computerPlayers = [];
 		
@@ -17,7 +19,6 @@ console.log("linked Game");
 Game.prototype.start = function() {
     this.gameIsOver = false;
     this.startLoop();
-    this.ctx = this.canvasElement.getContext('2d');
     
 
 } 
@@ -29,26 +30,32 @@ Game.prototype.startLoop = function() {
     //get context
 
     //button handling for player
-  
+  // change to switch
     this.handleKey = function(event) {
-        if (event.key === 'ArrowUp' || event.key === "w") {
-        console.log("up");
-            this.player.y--
+			
+        if (event.key === 'ArrowUp' && this.player.y>0) {
+					console.log("up");
         this.player.setDirection(-1);
-        } else if (event.key === 'ArrowDown' || event.key === "s") {
-        console.log("down");
-            this.player.y++
-        this.player.setDirection(1);
+            this.player.y += this.player.speed*this.player.direction
+        
+        } else if (event.key === 'ArrowDown' && this.player.y<490) {
+				console.log("down");
+				console.log(this.player);
+                this.player.setDirection(1);
+                this.player.y += this.player.speed*this.player.direction
+        
         }
-        else if (event.key === 'ArrowLeft' || event.key === "a") {
+        else if (event.key === 'ArrowLeft' && this.player.x>0) {
             console.log("left");
-                this.player.x--
-            this.player.setDirection(1);
-            }
-        else if (event.key === 'ArrowRight' || event.key === "d"){
-            console.log("right");
-                this.player.x++
             this.player.setDirection(-1);
+            this.player.x += this.player.speed*this.player.direction
+            
+            }
+        else if (event.key === 'ArrowRight' && this.player.x<690){
+						console.log("right");
+						console.log(this.player);
+            this.player.setDirection(1);
+            this.player.x += this.player.speed*this.player.direction
         }
     }.bind(this)
     
@@ -59,9 +66,10 @@ Game.prototype.startLoop = function() {
     var gameLoop = function() {
         
      //console.log(".");
+        this.clearAll();   
         this.drawAll();
         this.updateAll();
-        this.clearAll();
+        
         
        
 
@@ -92,8 +100,10 @@ Game.prototype.updateAll = function(){
 
   
   Game.prototype.clearAll = function(){
-   // this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
-  }
+
+    this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
+ 
+}
   
   Game.prototype.onGameOverCallBack = function(callback){
        
