@@ -1,11 +1,12 @@
 'use strict';
 
-function Pole(canvasElement,initialPosition){
+function Pole(canvasElement, initialPosition){
     this.x = initialPosition.x;
 	this.y = initialPosition.y;
     this.canvasElement = canvasElement;
     this.size = 20;
-	this.ctx = this.canvasElement.getContext('2d');
+    this.ctx = this.canvasElement.getContext('2d');
+    this.hasChimed = false;
 }
 
 

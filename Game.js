@@ -6,18 +6,21 @@ function Game(canvasElement) {
     this.lives = 1;
         
 	this.initialPositionPole = {
-		x: 80,
-		y: 80
+		x: 100,
+		y: 100
 	}
 		this.player = null;
-		this.pole = null;
-		this.computerPlayersAmount = 1;
+		this.computerPlayersAmount = 2;
+		this.polesAmount = 5;
 	this.computerPlayers = [];
+	this.poles = [];
 	this.collided = false;
 		
 }
-
-console.log("linked Game");
+var poleSound = new Audio("pole.wav");
+var attackSound = new Audio("attack.wav");
+var attackSound2 = new Audio("attacking.wav");
+var fallSound = new Audio("fall.wav");
 
 Game.prototype.start = function() {
     this.gameIsOver = false;
@@ -33,8 +36,50 @@ Game.prototype.startLoop = function() {
 		for(var i=0; i<this.computerPlayersAmount; i++){
 			this.computerPlayers.push(new ComputerPlayer(this.canvasElement));
 		}
-		//poles
-		this.pole = new Pole(this.canvasElement, this.initialPositionPole);
+		//poles instance
+		for(var i=0; i<this.polesAmount; i++){
+			//top left
+			if(i === 0) {
+				this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+			}
+			//top right
+			if(i === 1) {
+				this.initialPositionPole={
+					x:600,
+					y:100
+				}
+				this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+			}
+			//bottom left
+			if(i === 2) {
+				this.initialPositionPole={
+					x:100,
+					y:400
+				}
+				this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+			}
+			// middle
+			if(i === 3) {
+				this.initialPositionPole={
+					x:350,
+					y:250
+				}
+				this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+			}
+			//bottom right
+			if(i === 4) {
+				this.initialPositionPole={
+					x:600,
+					y:400
+				}
+				this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+			}
+	
+		
+	
+			
+			
+		}
     //get context
 
     //button handling for player
@@ -68,9 +113,12 @@ Game.prototype.startLoop = function() {
 		this.handleAttack = function(event) {
 				if(event.key === '/' && this.collided){
 					console.log("attacked success");
+					attackSound.play();
+					fallSound.play();
 					this.finishGame();
 				} else if (event.key === '/') {
 					console.log("random attack");
+					attackSound2.play();
 				}
 		}.bind(this);
 
@@ -119,7 +167,10 @@ Game.prototype.updateAll = function(){
 			})
 
 			//poles
-			this.pole.draw();
+			this.poles.forEach(function(pole){
+				pole.draw();
+			})
+			
   }
 
   
@@ -131,16 +182,41 @@ Game.prototype.updateAll = function(){
 	Game.prototype.checkAllCollisions = function(){
 		this.computerPlayers.forEach(function(computerPlayer){
 			if (this.player.collidesWithComputerPlayer(computerPlayer)) {
-				console.log("collision");
-				this.collided = true;
+						console.log("collision");
+						
+						this.collided = true;
 			}
 				else{
-					this.collided = false;
+						this.collided = false;
 				}
-			if (this.player.collidesWithPole(this.pole)){
-				console.log("pole here");
-			}
+
+		
+			
 			}.bind(this));
+
+			this.poles.forEach(function(pole){
+				if (this.player.collidesWithPole(pole) && pole.hasChimed === false) {
+							console.log("collision Pole");
+							pole.hasChimed = true;
+							
+							poleSound.play();
+							
+				}
+					else{
+							this.collided = false;
+					}
+	
+			
+				
+				}.bind(this));
+	
+
+
+
+
+
+
+
 
 	}
 
