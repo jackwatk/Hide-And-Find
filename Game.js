@@ -7,10 +7,11 @@ function Game(canvasElement) {
         //initalPosition to be randomised later
 	this.initialPosition = {
         x:100,
-        y:100
+        y:300
     };
     this.player = null;
-	this.computerPlayer = null;
+	this.computerPlayers = [];
+	this.collided = false;
 		
 }
 
@@ -27,7 +28,7 @@ Game.prototype.startLoop = function() {
     //player instance
     this.player = new Player(this.canvasElement);
 		//ComputerPlayer instance
-		this.computerPlayer = new ComputerPlayer(this.canvasElement);
+		this.computerPlayers.push(new ComputerPlayer(this.canvasElement));
     //get context
 
     //button handling for player
@@ -59,12 +60,12 @@ Game.prototype.startLoop = function() {
 		}.bind(this)
 		
 		this.handleAttack = function(event) {
-				if(event.key === '/' && this.checkAllCollisions === true){
-					console.log("attacked success")
-				} else if(event.key === '/') {
+				if(event.key === '/' && this.collided){
+					console.log("attacked success");
+				} else if (event.key === '/') {
 					console.log("random attack");
 				}
-		}
+		}.bind(this);
 
 
 		document.addEventListener('keydown', this.handleAttack);	
@@ -97,14 +98,19 @@ Game.prototype.updateAll = function(){
     //player
     this.player.update();
     //computer Players
-		this.computerPlayer.update();
+		this.computerPlayers.forEach(function(computerPlayer){
+			computerPlayer.update();
+		})
+		
     //poles
 }
   Game.prototype.drawAll = function(){
       //player
         this.player.draw();
 			//computerPlayers
-			this.computerPlayer.draw();
+			this.computerPlayers.forEach(function(computerPlayer){
+				computerPlayer.draw();
+			})
 
       //poles
   }
@@ -116,13 +122,16 @@ Game.prototype.updateAll = function(){
  
 }
 	Game.prototype.checkAllCollisions = function(){
-			if (this.player.collidesWithComputerPlayer(this.computerPlayer)) {
+		this.computerPlayers.forEach(function(computerPlayer){
+			if (this.player.collidesWithComputerPlayer(computerPlayer)) {
 				console.log("collision");
-				return true;
-			}
+				this.collided = true;}
+				else{
+					this.collided = false;
+				}
+			}.bind(this));
 
 	}
-
 
 
 

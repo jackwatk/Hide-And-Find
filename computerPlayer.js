@@ -156,20 +156,3 @@ function moveRandomlyX2 (){
 
     
     
-
-
-
-  
-
-/* random logic
-1 pick a direction randomly
-2 walk in this direction for 5-25 seconds
-3 wait for random amount of time from 3 to 7 seconds
-4 back to step 1
-
-fail Safes
-
-1 if you are approaching the edge, recognise this
-2 have a 1 in 10 chance of changing direction
-    if true do step 2 of previous
-    if false continue from step 3 from previous */

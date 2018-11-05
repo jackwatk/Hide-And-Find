@@ -2,7 +2,7 @@
 
 function Player(canvasElement, lives){
     this.x = 100
-	this.y = 100
+	this.y = 300
     this.canvasElement = canvasElement;
     this.size = 20;
     this.lives = lives;
