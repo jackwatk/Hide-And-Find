@@ -52,7 +52,9 @@ Player.prototype.collidesWithComputerPlayer = function(computerPlayer) {
     var collidesTop = computerPlayer.y <= this.y + this.size;
     var collidesBottom = computerPlayer.y + computerPlayer.size >= this.y;
     var collidesRight = computerPlayer.x <= this.x + this.size;
-    var collidesLeft = computerPlayer.x >= this.x + this.size;
+    var collidesLeft = computerPlayer.x + this.size >= this.x;
+    
+   
     return collidesRight && collidesBottom && collidesTop && collidesLeft;
     
   }

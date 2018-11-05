@@ -4,7 +4,7 @@ function ComputerPlayer(canvasElement){
     this.x = 300
 	this.y = 300
     this.canvasElement = canvasElement;
-    this.size = 15;
+    this.size = 10;
 	this.ctx = this.canvasElement.getContext('2d');
 	this.speed = 5;
 	this.direction = 0;
