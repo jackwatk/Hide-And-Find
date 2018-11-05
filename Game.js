@@ -3,13 +3,15 @@ function Game(canvasElement) {
 	this.gameIsOver = false;
     this.canvasElement = canvasElement;
     this.ctx = this.canvasElement.getContext('2d');    
-    this.lives;
-        //initalPosition to be randomised later
-	this.initialPosition = {
-        x:100,
-        y:300
-    };
-    this.player = null;
+    this.lives = 1;
+        
+	this.initialPositionPole = {
+		x: 80,
+		y: 80
+	}
+		this.player = null;
+		this.pole = null;
+		this.computerPlayersAmount = 1;
 	this.computerPlayers = [];
 	this.collided = false;
 		
@@ -28,7 +30,11 @@ Game.prototype.startLoop = function() {
     //player instance
     this.player = new Player(this.canvasElement);
 		//ComputerPlayer instance
-		this.computerPlayers.push(new ComputerPlayer(this.canvasElement));
+		for(var i=0; i<this.computerPlayersAmount; i++){
+			this.computerPlayers.push(new ComputerPlayer(this.canvasElement));
+		}
+		//poles
+		this.pole = new Pole(this.canvasElement, this.initialPositionPole);
     //get context
 
     //button handling for player
@@ -62,6 +68,7 @@ Game.prototype.startLoop = function() {
 		this.handleAttack = function(event) {
 				if(event.key === '/' && this.collided){
 					console.log("attacked success");
+					this.finishGame();
 				} else if (event.key === '/') {
 					console.log("random attack");
 				}
@@ -75,20 +82,19 @@ Game.prototype.startLoop = function() {
 
     var gameLoop = function() {
         
-     //console.log(".");
         this.clearAll();   
         this.drawAll();
 				this.updateAll();
 				this.checkAllCollisions();
         
-        console.log()
+      
        
-
+			
 
       if (!this.gameIsOver) {
         requestAnimationFrame(gameLoop);
       }
-  
+		
     }.bind(this);
   
     gameLoop();
@@ -112,7 +118,8 @@ Game.prototype.updateAll = function(){
 				computerPlayer.draw();
 			})
 
-      //poles
+			//poles
+			this.pole.draw();
   }
 
   
@@ -125,10 +132,14 @@ Game.prototype.updateAll = function(){
 		this.computerPlayers.forEach(function(computerPlayer){
 			if (this.player.collidesWithComputerPlayer(computerPlayer)) {
 				console.log("collision");
-				this.collided = true;}
+				this.collided = true;
+			}
 				else{
 					this.collided = false;
 				}
+			if (this.player.collidesWithPole(this.pole)){
+				console.log("pole here");
+			}
 			}.bind(this));
 
 	}
@@ -146,7 +157,8 @@ Game.prototype.updateAll = function(){
   }
 
   Game.prototype.finishGame = function(){
-        
+				
+		console.log("game finished")
       this.gameOverCallback();
       
       this.gameIsOver = true;

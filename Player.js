@@ -1,8 +1,8 @@
 'use strict';
 
 function Player(canvasElement, lives){
-    this.x = 100
-	this.y = 300
+    this.x = Math.random()*650;
+	this.y = Math.random()*400;
     this.canvasElement = canvasElement;
     this.size = 20;
     this.lives = lives;
@@ -74,6 +74,7 @@ Player.prototype.setDirection = function(direction){
 }
 
 Player.prototype.draw = function(){
+    this.ctx.fillStyle="black";
     this.ctx.fillRect(this.x,this.y, this.size, this.size);
 }
 
@@ -94,6 +95,18 @@ Player.prototype.collidesWithComputerPlayer = function(computerPlayer) {
     var collidesBottom = computerPlayer.y + computerPlayer.size >= this.y;
     var collidesRight = computerPlayer.x <= this.x + this.size;
     var collidesLeft = computerPlayer.x + this.size >= this.x;
+    
+   
+    return collidesRight && collidesBottom && collidesTop && collidesLeft;
+    
+  }
+
+  Player.prototype.collidesWithPole = function(pole) {
+
+    var collidesTop = pole.y <= this.y + this.size-5;
+    var collidesBottom = pole.y + pole.size-5 >= this.y;
+    var collidesRight = pole.x <= this.x + this.size-5;
+    var collidesLeft = pole.x + this.size-5 >= this.x;
     
    
     return collidesRight && collidesBottom && collidesTop && collidesLeft;

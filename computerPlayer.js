@@ -1,13 +1,14 @@
 'use strict';
 
 function ComputerPlayer(canvasElement){
-    this.x = 300
-	this.y = 300
+    this.x = Math.random()*650;
+	this.y = Math.random()*400;
     this.canvasElement = canvasElement;
     this.size = 20;
 	this.ctx = this.canvasElement.getContext('2d');
 	this.speed = 5;
-	this.direction = 0;
+    this.direction = 0;
+    this.lives = 1;
 }
 
 function randomCounter(){
@@ -64,6 +65,7 @@ ComputerPlayer.prototype.setDirection = function(direction){
 }
 
 ComputerPlayer.prototype.draw = function(){
+    this.ctx.fillStyle="black";
     this.ctx.fillRect(this.x,this.y, this.size, this.size);
 }
 
