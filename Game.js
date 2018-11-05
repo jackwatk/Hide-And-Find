@@ -56,9 +56,18 @@ Game.prototype.startLoop = function() {
             this.player.setDirection(1);
             this.player.x += this.player.speed*this.player.direction
         }
-    }.bind(this)
+		}.bind(this)
+		
+		this.handleAttack = function(event) {
+				if(event.key === '/' && this.checkAllCollisions === true){
+					console.log("attacked success")
+				} else if(event.key === '/') {
+					console.log("random attack");
+				}
+		}
 
-			
+
+		document.addEventListener('keydown', this.handleAttack);	
     document.addEventListener('keydown', this.handleKey);
 		
    
@@ -109,6 +118,7 @@ Game.prototype.updateAll = function(){
 	Game.prototype.checkAllCollisions = function(){
 			if (this.player.collidesWithComputerPlayer(this.computerPlayer)) {
 				console.log("collision");
+				return true;
 			}
 
 	}

@@ -4,45 +4,51 @@ function ComputerPlayer(canvasElement){
     this.x = 300
 	this.y = 300
     this.canvasElement = canvasElement;
-    this.size = 10;
+    this.size = 20;
 	this.ctx = this.canvasElement.getContext('2d');
 	this.speed = 5;
 	this.direction = 0;
 }
 
 function randomCounter(){
-    var random = Math.random()* 30000
+    var random = Math.random()* 300000
     return random;
 }
     var counter = 0;
 ComputerPlayer.prototype.update = function(){
     counter = randomCounter();
-    if(counter < 1000) {
+    if(counter < 10000) {
         this.y--;
         
-    } else if(counter < 4000){
-        this.y++;
-
-    } else if(counter < 8000){
-        this.y--
         
-    } else if(counter < 10000){
-        this.y++
+    } else if(counter < 40000){
+        this.x++;
 
-    } else if(counter < 14000){
+    } else if(counter < 80000){
+        this.y--;
+        this.x--;
+        
+    } else if(counter < 100000){
+        this.y++
+        
+
+    } else if(counter < 140000){
+        this.x--;
+
+    } else if(counter < 180000){
+        this.y++
+        this.x++;
+
+    } else if(counter < 220000){
         this.y--
+        this.x--;
 
-    } else if(counter < 18000){
+    }  else if(counter < 260000){
         this.y++
-
-    } else if(counter < 22000){
-        this.y--
-
-    }  else if(counter < 26000){
-        this.y++
+        this.x++;
 
     } else{
-        //put in here to put overall direction
+        //put in here to put overall direction eg an x random that eventually ends with a certain direction
     }
     
     

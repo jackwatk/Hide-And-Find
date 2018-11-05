@@ -4,13 +4,13 @@ function Player(canvasElement, lives){
     this.x = 100
 	this.y = 100
     this.canvasElement = canvasElement;
-    this.size = 10;
+    this.size = 20;
     this.lives = lives;
 	this.ctx = this.canvasElement.getContext('2d');
 	this.speed = 5;
 	this.direction = 0;
 }
-
+var counter = 0;
 Player.prototype.update = function(){
     
     if (this.y <= this.size / 2) {
@@ -26,6 +26,47 @@ Player.prototype.update = function(){
       if (this.x <= this.size / 2) {
         this.setDirection(1);
       }
+      function randomCounter(){
+        var random = Math.random()* 300000
+        return random;
+    }
+        counter = randomCounter();
+        if(counter < 10000) {
+            this.y--;
+            
+            
+        } else if(counter < 40000){
+            this.x++;
+    
+        } else if(counter < 80000){
+            this.y--;
+            this.x--;
+            
+        } else if(counter < 100000){
+            this.y++
+            
+    
+        } else if(counter < 140000){
+            this.x--;
+    
+        } else if(counter < 180000){
+            this.y++
+            this.x++;
+    
+        } else if(counter < 220000){
+            this.y--
+            this.x--;
+    
+        }  else if(counter < 260000){
+            this.y++
+            this.x++;
+    
+        } else{
+            //put in here to put overall direction eg an x random that eventually ends with a certain direction
+        }
+        
+        
+    
 }
 
 Player.prototype.setDirection = function(direction){
