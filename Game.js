@@ -57,17 +57,8 @@ Game.prototype.startLoop = function() {
             this.player.x += this.player.speed*this.player.direction
         }
     }.bind(this)
-		
-		//computer inside container
-			if(this.computerPlayer.y>0){
-					this.computerPlayer.y--;
-			} else if(this.computerPlayer.y<490){
-				this.computerPlayer.y++;
-			} else if(this.computerPlayer.x>0){
-					this.computerPlayer.x++;
-			} else if(this.computerPlayer.x<690){
-				this.computerPlayer.x--;
-			}
+
+			
     document.addEventListener('keydown', this.handleKey);
 		
    

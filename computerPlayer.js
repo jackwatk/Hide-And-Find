@@ -10,9 +10,41 @@ function ComputerPlayer(canvasElement){
 	this.direction = 0;
 }
 
+function randomCounter(){
+    var random = Math.random()* 30000
+    return random;
+}
+    var counter = 0;
 ComputerPlayer.prototype.update = function(){
-    //this.x++
-   
+    counter = randomCounter();
+    if(counter < 1000) {
+        this.y--;
+        
+    } else if(counter < 4000){
+        this.y++;
+
+    } else if(counter < 8000){
+        this.y--
+        
+    } else if(counter < 10000){
+        this.y++
+
+    } else if(counter < 14000){
+        this.y--
+
+    } else if(counter < 18000){
+        this.y++
+
+    } else if(counter < 22000){
+        this.y--
+
+    }  else if(counter < 26000){
+        this.y++
+
+    } else{
+        //put in here to put overall direction
+    }
+    
     
 }
 
@@ -50,17 +82,76 @@ var randomDirection = function () {
     }
 }
 
-/* ComputerPlayer.prototype.moveRandomly = function () {
-    
-        //if(this.x < 0){
-     setInterval(function(){
+
+function moveRandomlyX1 () {
+    counter = randomCounter(); 
+    if(counter < 1000) {
+        this.x--;
+    } else if(counter < 4000){
+        this.x++;
+
+    } else if(counter < 8000){
+        this.x--
         
-        this.x -= 5
-        console.log("waiting");
-    },randomWaitTime)
+    } else if(counter < 10000){
+        this.x++
+
+    } else if(counter < 14000){
+        this.x--
+
+    } else if(counter < 18000){
+        this.x++
+
+    } else if(counter < 22000){
+        this.x--
+
+    }  else if(counter < 26000){
+        this.x++
+
+    } else if(counter < 30000){
+        this.x--
+
+    } else{
+        console.log("nothing")
+    }
+    
 }
-}
- */
+
+
+function moveRandomlyX2 (){
+    counter = randomCounter(); 
+    if(counter < 1000) {
+        this.x++;
+    } else if(counter < 4000){
+        this.x--;
+
+    } else if(counter < 8000){
+        this.x++
+        
+    } else if(counter < 10000){
+        this.x--
+
+    } else if(counter < 14000){
+        this.x++
+
+    } else if(counter < 18000){
+        this.x--
+
+    } else if(counter < 22000){
+        this.x++
+
+    }  else if(counter < 26000){
+        this.x--
+
+    } else if(counter < 30000){
+        this.x++
+    }
+    }
+
+    
+    
+
+
 
   
 
