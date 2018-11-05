@@ -13,7 +13,6 @@ function Player(canvasElement, lives){
 
 Player.prototype.update = function(){
     
-    console.log("Player Update");
     if (this.y <= this.size / 2) {
         this.setDirection(1);
       }
@@ -47,3 +46,14 @@ Player.prototype.collidedWithComputerPlayer() = function(){
     console.log("you bumped into a computerPlayer")
 }
  */
+
+Player.prototype.collidesWithEnemy = function(computerPlayer) {
+
+    var collidesTop = computerPlayer.y <= this.y + this.size;
+    var collidesBottom = computerPlayer.y + computerPlayer.size >= this.y;
+    var collidesRight = computerPlayer.x <= this.x + this.size;
+    var collidesLeft = computerPlayer.x >= this.x + this.size;
+    
+    return collidesRight && collidesBottom && collidesTop && collidesLeft;
+    
+  }

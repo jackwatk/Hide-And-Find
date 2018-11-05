@@ -18,12 +18,16 @@ html {
   
   body {
     color: #111;
-    font-family: Helvetica, Arial, sans-serif;
+    font-family: 'Press Start 2P', cursive, Helvetica, Arial, sans-serif;
     font-size: 16px;
     line-height: 147%;
   }
   
-  h1 {}
+  h1 {
+      text-align: center;
+      font-family: 'Hanalei Fill', cursive;
+      font-size: 8vw;
+  }
   
   h2 {}
   
@@ -62,31 +66,71 @@ html {
     padding-top: 20px;
   }
   
-  @media (min-width: 768px) {
+ /*  @media (min-width: 768px) {
     .container {
       max-width: 728px;
       margin: 0 auto;
     }
+  } */
+
+  main {
+    text-align: center;
+    background-image: url(paper.png);
+    display: grid;
+    justify-content: center;
   }
+  main img {
+    max-width: 70%;
+    box-shadow: 1px 2px 17px 10px #0000008c;
+    border: 10px solid black;
+    border-radius: 50%;
+  }
+  .eye{
+    border: 3px solid;
+    border-radius: 50%;
+    margin: 3px auto;
+    padding: 1%;
+    max-width: 40%;
+}
+  
+  
   
   
   
   
   /* ---- components ---- */
   
-  .button {
-    width: 100%;
+  button {
     background-color: blue;
+    border-radius: 2px;
+    align-self: center;
+    width: 30%;
+    margin: 3%;
+    padding: 15px;
     color: #fff;
-    border: 1px solid #fff
-  }
+    border: 3px groove #00000069;
+    font-family: 'Press Start 2P', cursive;
+}
   
   .button-alt {
     color: blue;
     background-color: #fff;
   }
+  .btn-start {
+    background-color: #e23434;
+    border-radius: 2px;
+    align-self: center;
+    width: 30%;
+    margin: 3%;
+    padding: 15px;
+    color: #fff;
+    border: 3px groove #00000069;
+    font-family: 'Press Start 2P', cursive;
+  }
   canvas{
       border: 2px solid black;
+      margin: auto;
+      margin-top: 20px;
   }
   
   /* ---- section ---- */

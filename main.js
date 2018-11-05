@@ -19,13 +19,19 @@ function main(){
     function buildSplash() {
         splashScreen =  buildDom(
             `<main>
+            <div class = "container">
             <h1>Hide And Find</h1>
-            <button>Start</button>
+            <div class="eye"><img src="hide.png"></div>
+            <div class="container">
+            <button class="btn-start">Start</button>
+            <button class="btn-instruction">Instructions</button>
+            </div>
+            </div>
             </main>`)
 
         document.body.append(splashScreen);
 
-        startButton = document.querySelector('button');
+        startButton = document.querySelector('.btn-start');
 
         startButton.addEventListener('click',destroySplash);
     }

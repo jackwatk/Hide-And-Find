@@ -10,7 +10,7 @@ function Game(canvasElement) {
         y:100
     };
     this.player = null;
-	this.computerPlayers = [];
+	this.computerPlayer = null;
 		
 }
 
@@ -26,7 +26,8 @@ Game.prototype.start = function() {
 Game.prototype.startLoop = function() {
     //player instance
     this.player = new Player(this.canvasElement);
-    //enemy instance
+		//ComputerPlayer instance
+		this.computerPlayer = new ComputerPlayer(this.canvasElement);
     //get context
 
     //button handling for player
@@ -58,9 +59,19 @@ Game.prototype.startLoop = function() {
             this.player.x += this.player.speed*this.player.direction
         }
     }.bind(this)
-    
+		
+		//computer inside container
+			if(this.computerPlayer.y>0){
+					this.computerPlayer.y--;
+			} else if(this.computerPlayer.y<490){
+				this.computerPlayer.y++;
+			} else if(this.computerPlayer.x>0){
+					this.computerPlayer.x++;
+			} else if(this.computerPlayer.x<690){
+				this.computerPlayer.x--;
+			}
     document.addEventListener('keydown', this.handleKey);
- 
+		
    
 
     var gameLoop = function() {
@@ -70,7 +81,7 @@ Game.prototype.startLoop = function() {
         this.drawAll();
         this.updateAll();
         
-        
+        console.log()
        
 
 
@@ -87,13 +98,14 @@ Game.prototype.updateAll = function(){
     //player
     this.player.update();
     //computer Players
-
+		this.computerPlayer.update();
     //poles
 }
   Game.prototype.drawAll = function(){
       //player
         this.player.draw();
-      //computerPlayers
+			//computerPlayers
+			this.computerPlayer.draw();
 
       //poles
   }
