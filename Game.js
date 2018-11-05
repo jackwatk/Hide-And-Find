@@ -35,26 +35,24 @@ Game.prototype.startLoop = function() {
     this.handleKey = function(event) {
 			
         if (event.key === 'ArrowUp' && this.player.y>0) {
-					console.log("up");
         this.player.setDirection(-1);
             this.player.y += this.player.speed*this.player.direction
         
         } else if (event.key === 'ArrowDown' && this.player.y<490) {
-				console.log("down");
-				console.log(this.player);
+			
                 this.player.setDirection(1);
                 this.player.y += this.player.speed*this.player.direction
         
         }
         else if (event.key === 'ArrowLeft' && this.player.x>0) {
-            console.log("left");
+            
             this.player.setDirection(-1);
             this.player.x += this.player.speed*this.player.direction
             
             }
         else if (event.key === 'ArrowRight' && this.player.x<690){
-						console.log("right");
-						console.log(this.player);
+						
+			
             this.player.setDirection(1);
             this.player.x += this.player.speed*this.player.direction
         }
@@ -79,7 +77,8 @@ Game.prototype.startLoop = function() {
      //console.log(".");
         this.clearAll();   
         this.drawAll();
-        this.updateAll();
+				this.updateAll();
+				this.checkAllCollisions();
         
         console.log()
        
@@ -116,7 +115,20 @@ Game.prototype.updateAll = function(){
     this.ctx.clearRect(0, 0, this.canvasElement.width, this.canvasElement.height);
  
 }
-  
+	Game.prototype.checkAllCollisions = function(){
+			if (this.player.collidesWithComputerPlayer(this.computerPlayer)) {
+				console.log("collision");
+			}
+
+	}
+
+
+
+
+
+
+
+
   Game.prototype.onGameOverCallBack = function(callback){
        
     this.gameOverCallback = callback;
