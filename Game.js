@@ -10,6 +10,7 @@ function Game(canvasElement) {
 		y: 40
 	}
 		this.player = null;
+		this.animation = null;
 		this.computerPlayersAmount = 2;
 		this.polesAmount = 5;
 	this.computerPlayers = [];
@@ -32,7 +33,7 @@ Game.prototype.start = function() {
 
 Game.prototype.startLoop = function() {
     //player instance
-    this.player = new Player(this.canvasElement);
+		this.player = new Player(this.canvasElement);
 		//ComputerPlayer instance
 		for(var i=0; i<this.computerPlayersAmount; i++){
 			this.computerPlayers.push(new ComputerPlayer(this.canvasElement));
@@ -104,11 +105,13 @@ Game.prototype.startLoop = function() {
             
             }
         else if (event.key === 'ArrowRight' && this.player.x<690){
-						
+						this.player.runAnimation.knightWalk();
 			
-            this.player.setDirection(1);
-            this.player.x += this.player.speed*this.player.direction
-        }
+						this.player.setDirection(1);
+						
+						this.player.x += this.player.speed*this.player.direction
+				}
+				
 		}.bind(this)
 		
 		this.handleAttack = function(event) {

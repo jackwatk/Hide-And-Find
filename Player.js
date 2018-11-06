@@ -8,8 +8,11 @@ function Player(canvasElement, lives){
     this.lives = lives;
 	this.ctx = this.canvasElement.getContext('2d');
 	this.speed = 5;
-	this.direction = 0;
+    this.direction = 0;
+    this.runAnimation = new Animation(this.x, this.y);
 }
+
+
 var counter = 0;
 Player.prototype.update = function(){
     
@@ -26,7 +29,7 @@ Player.prototype.update = function(){
       if (this.x <= this.size / 2) {
         this.setDirection(1);
       }
-      function randomCounter(){
+     /*  function randomCounter(){
         var random = Math.random()* 300000
         return random;
     }
@@ -63,8 +66,9 @@ Player.prototype.update = function(){
     
         } else{
             //put in here to put overall direction eg an x random that eventually ends with a certain direction
-        }
-        
+        } */
+        this.runAnimation.update(this.x, this.y)
+            
         
     
 }
@@ -74,8 +78,9 @@ Player.prototype.setDirection = function(direction){
 }
 
 Player.prototype.draw = function(){
-    this.ctx.fillStyle="black";
-    this.ctx.fillRect(this.x,this.y, this.size, this.size);
+    this.runAnimation.renderKnight();
+    this.runAnimation.frameIndexCounter();
+    
 }
 
 
@@ -83,9 +88,6 @@ Player.prototype.draw = function(){
 
 /* Player.prototype.collidedWithPlayer() = function(){
     console.log("you bumped into a player");
-}
-Player.prototype.collidedWithComputerPlayer() = function(){
-    console.log("you bumped into a computerPlayer")
 }
  */
 
