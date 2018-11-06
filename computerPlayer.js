@@ -9,14 +9,17 @@ function ComputerPlayer(canvasElement){
 	this.speed = 5;
     this.direction = 0;
     this.lives = 1;
+    this.runAnimation = new Animation(this.x, this.y);
 }
 
 function randomCounter(){
-    var random = Math.random()* 300000
+    var random = Math.random()* 3000000
     return random;
 }
     var counter = 0;
+
 ComputerPlayer.prototype.update = function(){
+
     counter = randomCounter();
     if(counter < 10000) {
         this.y--;
@@ -24,6 +27,7 @@ ComputerPlayer.prototype.update = function(){
         
     } else if(counter < 40000){
         this.x++;
+        
 
     } else if(counter < 80000){
         this.y--;
@@ -35,6 +39,7 @@ ComputerPlayer.prototype.update = function(){
 
     } else if(counter < 140000){
         this.x--;
+        
 
     } else if(counter < 180000){
         this.y++
@@ -65,8 +70,8 @@ ComputerPlayer.prototype.setDirection = function(direction){
 }
 
 ComputerPlayer.prototype.draw = function(){
-    this.ctx.fillStyle="black";
-    this.ctx.fillRect(this.x,this.y, this.size, this.size);
+    this.runAnimation.renderKnight();
+    this.runAnimation.frameIndexCounter();
 }
 
 var randomWaitTime = function () {

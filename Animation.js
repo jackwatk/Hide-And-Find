@@ -5,7 +5,7 @@ function Animation(playerX,playerY){
     this.spriteSheet = new Image();
     this.spriteSheet.src = "knight-idle.png";
     this.frameIndex = 0;
-    this.frameSpeed = 40;
+    this.frameSpeed = 45;
     this.speedCounter = 0;
     this.amountOfFrames = 3;
     this.playerX = playerX;
@@ -41,8 +41,9 @@ Animation.prototype.renderKnight = function(game){
     
     this.frameIndexCounter();
 }
+//walk - right
 Animation.prototype.knightWalk = function(game){
-
+     
     this.spriteSheet = new Image();
     this.spriteSheet.src = 'knight-walk.png';
     this.ctx.drawImage(
@@ -58,11 +59,12 @@ Animation.prototype.knightWalk = function(game){
     
     this.frameIndexCounter();
 }
+//walk - left
 
-Animation.prototype.attack = function(game){
-
+Animation.prototype.knightWalkLeft = function(game){
+     
     this.spriteSheet = new Image();
-    this.spriteSheet.src = 'knight-attack.png';
+    this.spriteSheet.src = 'knight-walk-left.png';
     this.ctx.drawImage(
         this.spriteSheet,
         this.frameIndex*42,
@@ -77,10 +79,12 @@ Animation.prototype.attack = function(game){
     this.frameIndexCounter();
 }
 
-Animation.prototype.knightWalk = function(game){
+//die
+Animation.prototype.die = function(game){
 
     this.spriteSheet = new Image();
-    this.spriteSheet.src = 'knight-walk.png';
+    this.spriteSheet.src = 'knight-death.png';
+    this.amountOfFrames = 10;
     this.ctx.drawImage(
         this.spriteSheet,
         this.frameIndex*42,
@@ -93,6 +97,26 @@ Animation.prototype.knightWalk = function(game){
         42) //162    
     
     this.frameIndexCounter();
+}
+
+Animation.prototype.knightAttack = function(game){
+    this.renderKnight();
+    this.spriteSheet = new Image();
+    this.spriteSheet.src = 'knight-attack-3.png';
+    this.amountOfFrames = 8;
+    this.ctx.drawImage(
+        this.spriteSheet,
+        this.frameIndex*42,
+        0,
+        42, //23
+        42, //162
+        this.playerX,
+        this.playerY,
+        42, //23
+        42) //162    
+    
+    this.frameIndexCounter();
+    
 }
 Animation.prototype.update = function(x,y){
     this.playerX = x;

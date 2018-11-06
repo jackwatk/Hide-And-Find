@@ -10,8 +10,9 @@ function Game(canvasElement) {
 		y: 40
 	}
 		this.player = null;
+		this.player2 = null;
 		this.animation = null;
-		this.computerPlayersAmount = 2;
+		this.computerPlayersAmount = 0;
 		this.polesAmount = 5;
 	this.computerPlayers = [];
 	this.poles = [];
@@ -32,8 +33,11 @@ Game.prototype.start = function() {
 } 
 
 Game.prototype.startLoop = function() {
-    //player instance
+		//player instance
+			//player1
 		this.player = new Player(this.canvasElement);
+			//player2
+		this.player2 = new Player(this.canvasElement);
 		//ComputerPlayer instance
 		for(var i=0; i<this.computerPlayersAmount; i++){
 			this.computerPlayers.push(new ComputerPlayer(this.canvasElement));
@@ -99,7 +103,7 @@ Game.prototype.startLoop = function() {
         
         }
         else if (event.key === 'ArrowLeft' && this.player.x>0) {
-            
+					this.player.runAnimation.knightWalkLeft();
             this.player.setDirection(-1);
             this.player.x += this.player.speed*this.player.direction
             
@@ -122,15 +126,63 @@ Game.prototype.startLoop = function() {
 					this.finishGame();
 				} else if (event.key === '/') {
 					console.log("random attack");
+					this.player.runAnimation.knightAttack();
 					attackSound2.play();
 				}
 		}.bind(this);
 
-
+		//player1
 		document.addEventListener('keydown', this.handleAttack);	
-    document.addEventListener('keydown', this.handleKey);
+		document.addEventListener('keydown', this.handleKey);
+
+		//player2
+		document.addEventListener('keydown', this.handlePlayer2Attack);	
+		document.addEventListener('keydown', this.handlePlayer2Key);
 		
-   
+		 // change to switch
+    this.handlePlayer2Key = function(event) {
+			
+        if (event.key === 'w' && this.player2.y>0) {
+        this.player2.setDirection(-1);
+            this.player2.y += this.player2.speed*this.player2.direction
+        
+        } else if (event.key === 's' && this.player2.y<490) {
+			
+                this.player2.setDirection(1);
+                this.player2.y += this.player2.speed*this.player2.direction
+        
+        }
+        else if (event.key === 'a' && this.player2.x>0) {
+					this.player2.runAnimation.knightWalkLeft();
+            this.player2.setDirection(-1);
+            this.player2.x += this.player2.speed*this.player2.direction
+            
+            }
+        else if (event.key === 'd' && this.player2.x<690){
+						this.player2.runAnimation.knightWalk();
+			
+						this.player2.setDirection(1);
+						
+						this.player2.x += this.player2.speed*this.player2.direction
+				}
+				
+		}.bind(this)
+		
+		this.handlePlayer2Attack = function(event) {
+				if(event.key === 'z' && this.collided){
+					console.log("attacked success");
+					attackSound.play();
+					fallSound.play();
+					this.finishGame();
+				} else if (event.key === '/') {
+					console.log("random attack");
+					this.player2.runAnimation.knightAttack();
+					attackSound2.play();
+				}
+		}.bind(this);
+   //player2
+		document.addEventListener('keydown', this.handlePlayer2Attack);	
+		document.addEventListener('keydown', this.handlePlayer2Key);
 
     var gameLoop = function() {
         
@@ -160,7 +212,8 @@ Game.prototype.startLoop = function() {
 
 Game.prototype.updateAll = function(){
     //player
-    this.player.update();
+		this.player.update();
+		this.player2.update();
     //computer Players
 		this.computerPlayers.forEach(function(computerPlayer){
 			computerPlayer.update();
@@ -170,7 +223,8 @@ Game.prototype.updateAll = function(){
 }
   Game.prototype.drawAll = function(){
       //player
-        this.player.draw();
+				this.player.draw();
+				this.player2.draw();
 			//computerPlayers
 			this.computerPlayers.forEach(function(computerPlayer){
 				computerPlayer.draw();
@@ -193,8 +247,9 @@ Game.prototype.updateAll = function(){
 		this.computerPlayers.forEach(function(computerPlayer){
 			if (this.player.collidesWithComputerPlayer(computerPlayer)) {
 						console.log("collision");
-						
+						this.player.runAnimation.die();
 						this.collided = true;
+						
 			}
 				else{
 						this.collided = false;

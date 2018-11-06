@@ -15,6 +15,8 @@ function Player(canvasElement, lives){
 
 var counter = 0;
 Player.prototype.update = function(){
+
+    
     
     if (this.y <= this.size / 2) {
         this.setDirection(1);
