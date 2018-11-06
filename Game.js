@@ -12,11 +12,11 @@ function Game(canvasElement) {
 		this.player = null;
 		this.player2 = null;
 		this.animation = null;
-		this.computerPlayersAmount = 0;
+		this.computerPlayersAmount = 1;
 		this.polesAmount = 5;
 	this.computerPlayers = [];
 	this.poles = [];
-	this.collided = false;
+	this.playerTouchingComputerPlayer = false;
 	this.playersTouching = false;
 	this.chimeCount = 0;
 		
@@ -120,12 +120,16 @@ Game.prototype.startLoop = function() {
 		}.bind(this)
 		
 		this.handleAttack = function(event) {
-				if(event.key === '/' && this.collided){
+				if(event.key === '/' && this.playersTouching){
 					console.log("attacked success");
 					attackSound.play();
+					this.playersTouching = false;
 					fallSound.play();
 					this.finishGame();
-				} else if (event.key === '/') {
+				} else if(event.key === "/" && this.playerTouchingComputerPlayer){
+						console.log("attack enemy");
+						
+				}	else if (event.key === '/') {
 					console.log("random attack");
 					this.player.runAnimation.knightAttack();
 					attackSound2.play();
@@ -171,16 +175,18 @@ Game.prototype.startLoop = function() {
 		
 		this.handlePlayer2Attack = function(event) {
 				if(event.key === 'z' && this.playersTouching){
-					console.log("attacked success");
-					attackSound.play();
-					this.playersTouching = false;
-					this.player.runAnimation.die();
-					fallSound.play();
-					this.finishGame();
-				} else if (event.key === 'z') {
-					console.log("random attack");
-					this.player2.runAnimation.knightAttack();
-					attackSound2.play();
+						console.log("attacked success");
+						attackSound.play();
+						this.playersTouching = false;
+						this.player.runAnimation.die();
+						fallSound.play();
+						this.finishGame();
+				}else if (event.key === 'z') {
+						console.log("random attack");
+						this.player2.runAnimation.knightAttack();
+						attackSound2.play();
+				} else if(event.key === "z" && this.collidedEnemy){
+					this.animation.die();
 				}
 		}.bind(this);
    //player2
@@ -250,13 +256,12 @@ Game.prototype.updateAll = function(){
 		//check computer player collisions
 		this.computerPlayers.forEach(function(computerPlayer){
 			if (this.player.collidesWithComputerPlayer(computerPlayer)) {
-						console.log("collision");
-						this.player.runAnimation.die();
-						this.collided = true;
+						console.log("collision computer");
+						this.playerTouchingComputerPlayer = true;
 						
 			}
 				else{
-						this.collided = false;
+						this.playerTouchingComputerPlayer = false;
 				}
 
 		
@@ -272,14 +277,11 @@ Game.prototype.updateAll = function(){
 							
 							poleSound.play();
 							
-				}else{
-							this.collided = false;
-					}
+				}
 					}.bind(this));
 				//check player collisions
 			
 				if (this.player.collidesWithPlayer(this.player2)){
-					console.log("touching");
 					this.playersTouching = true;
 				} else{
 					this.playersTouching = false;
