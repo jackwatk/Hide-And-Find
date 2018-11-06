@@ -86,12 +86,7 @@ Player.prototype.draw = function(){
 }
 
 
-
-
-/* Player.prototype.collidedWithPlayer() = function(){
-    console.log("you bumped into a player");
-}
- */
+ 
 
 Player.prototype.collidesWithComputerPlayer = function(computerPlayer) {
 
@@ -116,3 +111,13 @@ Player.prototype.collidesWithComputerPlayer = function(computerPlayer) {
     return collidesRight && collidesBottom && collidesTop && collidesLeft;
     
   }
+
+  Player.prototype.collidesWithPlayer = function(playertwo){
+    var collidesTop = playertwo.y <= this.y + this.size;
+    var collidesBottom = playertwo.y + playertwo.size >= this.y;
+    var collidesRight = playertwo.x <= this.x + this.size;
+    var collidesLeft = playertwo.x + this.size >= this.x;
+    
+   
+    return collidesRight && collidesBottom && collidesTop && collidesLeft;
+}
