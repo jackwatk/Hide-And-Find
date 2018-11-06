@@ -6,8 +6,8 @@ function Game(canvasElement) {
     this.lives = 1;
         
 	this.initialPositionPole = {
-		x: 100,
-		y: 100
+		x: 40,
+		y: 40
 	}
 		this.player = null;
 		this.computerPlayersAmount = 2;
@@ -15,6 +15,7 @@ function Game(canvasElement) {
 	this.computerPlayers = [];
 	this.poles = [];
 	this.collided = false;
+	this.chimeCount = 0;
 		
 }
 var poleSound = new Audio("pole.wav");
@@ -46,23 +47,23 @@ Game.prototype.startLoop = function() {
 			if(i === 1) {
 				this.initialPositionPole={
 					x:600,
-					y:100
+					y:40
 				}
 				this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
 			}
 			//bottom left
 			if(i === 2) {
 				this.initialPositionPole={
-					x:100,
-					y:400
+					x:40,
+					y:320
 				}
 				this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
 			}
 			// middle
 			if(i === 3) {
 				this.initialPositionPole={
-					x:350,
-					y:250
+					x:320,
+					y:200
 				}
 				this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
 			}
@@ -70,7 +71,7 @@ Game.prototype.startLoop = function() {
 			if(i === 4) {
 				this.initialPositionPole={
 					x:600,
-					y:400
+					y:320
 				}
 				this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
 			}
@@ -139,10 +140,16 @@ Game.prototype.startLoop = function() {
        
 			
 
-      if (!this.gameIsOver) {
-        requestAnimationFrame(gameLoop);
-      }
-		
+			if (!this.gameIsOver) {
+				requestAnimationFrame(gameLoop);
+				
+			}
+			if (this.chimeCount === 5){
+				this.finishGame();
+				
+				
+				
+			}
     }.bind(this);
   
     gameLoop();
@@ -198,6 +205,8 @@ Game.prototype.updateAll = function(){
 				if (this.player.collidesWithPole(pole) && pole.hasChimed === false) {
 							console.log("collision Pole");
 							pole.hasChimed = true;
+							this.chimeCount = this.chimeCount + 1;
+							console.log(this.chimeCount);
 							
 							poleSound.play();
 							
@@ -235,7 +244,8 @@ Game.prototype.updateAll = function(){
   Game.prototype.finishGame = function(){
 				
 		console.log("game finished")
-      this.gameOverCallback();
+			this.gameOverCallback();
+			
       
       this.gameIsOver = true;
   }
