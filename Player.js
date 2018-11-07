@@ -31,44 +31,7 @@ Player.prototype.update = function(){
       if (this.x <= this.size / 2) {
         this.setDirection(1);
       }
-     /*  function randomCounter(){
-        var random = Math.random()* 300000
-        return random;
-    }
-        counter = randomCounter();
-        if(counter < 10000) {
-            this.y--;
-            
-            
-        } else if(counter < 40000){
-            this.x++;
-    
-        } else if(counter < 80000){
-            this.y--;
-            this.x--;
-            
-        } else if(counter < 100000){
-            this.y++
-            
-    
-        } else if(counter < 140000){
-            this.x--;
-    
-        } else if(counter < 180000){
-            this.y++
-            this.x++;
-    
-        } else if(counter < 220000){
-            this.y--
-            this.x--;
-    
-        }  else if(counter < 260000){
-            this.y++
-            this.x++;
-    
-        } else{
-            //put in here to put overall direction eg an x random that eventually ends with a certain direction
-        } */
+     
         this.runAnimation.update(this.x, this.y)
             
         
@@ -123,25 +86,25 @@ Player.prototype.collidesWithComputerPlayer = function(computerPlayer) {
 
 //movement
 Player.prototype.moveLeft = function(){
-    console.log("moving player 1 left");
+    
     this.setDirection(-1);
     this.x += this.speed*this.direction
     this.runAnimation.knightWalkLeft();
 }
 
 Player.prototype.moveRight = function(){
-    console.log("moving player 1 right");
+  
     this.runAnimation.knightWalk();
 	this.setDirection(1);
 	this.x += this.speed*this.direction
 }
 Player.prototype.moveUp = function(){
-    console.log("moving player 1 up");
+   
     this.setDirection(-1);
 	this.y += this.speed*this.direction
 }
 Player.prototype.moveDown = function(){
-    console.log("moving player 1 down");
+    
     this.setDirection(1);
-				this.y += this.speed*this.direction
+	this.y += this.speed*this.direction
 }

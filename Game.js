@@ -12,7 +12,7 @@ function Game(canvasElement) {
 		this.player = null;
 		this.player2 = null;
 		this.animation = null;
-		this.computerPlayersAmount = 10;
+		this.computerPlayersAmount = 21;
 		this.polesAmount = 5;
 	this.computerPlayers = [];
 	this.poles = [];
@@ -87,12 +87,12 @@ Game.prototype.startLoop = function() {
     //button handling for player
 	// change to switch
 			
-    this.handleKey = function(event) {
-			
-			if (this.playerKeys.includes(event.key) && !this.playerPressed.includes(event.key)) {
-				this.playerPressed.push(event.key);
+    var handleKey = function(event) {
+			if (event) {
+				if (this.playerKeys.includes(event.key) && !this.playerPressed.includes(event.key)) {
+					this.playerPressed.push(event.key);
+				}
 			}
-			console.log(this.playerPressed)
 
 			this.playerPressed.forEach(function(key){
 				if(key === "ArrowLeft"){
@@ -123,11 +123,17 @@ Game.prototype.startLoop = function() {
 		}.bind(this);
 			//player1
 
-		var handleKeyUp = function () {
-			this.playerPressed = []
+		var handleKeyUp = function (event) {
+			console.log(this.playerPressed)
+			var eventKeyIndex = this.playerPressed.indexOf(event.key)
+			this.playerPressed.splice(eventKeyIndex,1);
+			if(this.playerPressed.length) {
+				console.log(this.playerPressed)
+				handleKey();
+			}
 		}.bind(this)
 
-		document.addEventListener('keydown', this.handleKey);
+		document.addEventListener('keydown', handleKey);
 		document.addEventListener('keyup', handleKeyUp)
 		document.addEventListener('keydown', this.handleAttack);	
 			

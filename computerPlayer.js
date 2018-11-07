@@ -37,6 +37,13 @@ ComputerPlayer.prototype.update = function(){
 ComputerPlayer.prototype.setDirection = function(direction){
     this.directionY = this.getRandomDirection(); 
     this.directionX = this.getRandomDirection();
+    if(this.directionY === -1 || this.directionX === -1){
+        this.runAnimation.knightWalkLeft();
+    } else if(this.directionY === 1 || this.directionX === 1){
+        this.runAnimation.knightWalk();
+    } else{
+        this.runAnimation.renderKnight();
+    }
 }
 
 
