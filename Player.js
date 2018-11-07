@@ -80,9 +80,7 @@ Player.prototype.setDirection = function(direction){
 }
 
 Player.prototype.draw = function(){
-    this.runAnimation.renderKnight();
-    this.runAnimation.frameIndexCounter();
-    
+        this.runAnimation.draw();
 }
 
 

@@ -28,98 +28,57 @@ Animation.prototype.frameIndexCounter = function(){
 
 Animation.prototype.renderKnight = function(game){
     
-    this.ctx.drawImage(
-        this.spriteSheet,
-        this.frameIndex*42,
-        0,
-        42, //23
-        42, //162
-        this.playerX,
-        this.playerY,
-        42, //23
-        42) //162    
+    //this.spriteSheet = new Image();
+    this.spriteSheet.src = "knight-idle.png";
     
-    this.frameIndexCounter();
 }
 //walk - right
 Animation.prototype.knightWalk = function(game){
      
-    this.spriteSheet = new Image();
-    this.spriteSheet.src = 'knight-walk.png';
-    this.ctx.drawImage(
-        this.spriteSheet,
-        this.frameIndex*42,
-        0,
-        42, //23
-        42, //162
-        this.playerX,
-        this.playerY,
-        42, //23
-        42) //162    
+    //this.spriteSheet = new Image();
     
-    this.frameIndexCounter();
+    this.spriteSheet.src = 'knight-walk.png';
 }
 //walk - left
 
 Animation.prototype.knightWalkLeft = function(game){
      
-    this.spriteSheet = new Image();
+    //this.spriteSheet = new Image();
     this.spriteSheet.src = 'knight-walk-left.png';
-    this.ctx.drawImage(
-        this.spriteSheet,
-        this.frameIndex*42,
-        0,
-        42, //23
-        42, //162
-        this.playerX,
-        this.playerY,
-        42, //23
-        42) //162    
-    
-    this.frameIndexCounter();
 }
 
 //die
 Animation.prototype.die = function(game){
 
-    this.spriteSheet = new Image();
+    //this.spriteSheet = new Image();
     this.spriteSheet.src = 'knight-death.png';
     this.amountOfFrames = 10;
-    this.ctx.drawImage(
-        this.spriteSheet,
-        this.frameIndex*42,
-        0,
-        42, //23
-        42, //162
-        this.playerX,
-        this.playerY,
-        42, //23
-        42) //162    
-    
-    this.frameIndexCounter();
 }
 
 Animation.prototype.knightAttack = function(game){
     this.renderKnight();
-    this.spriteSheet = new Image();
+    //this.spriteSheet = new Image();
     this.spriteSheet.src = 'knight-attack-3.png';
     this.amountOfFrames = 8;
-    this.ctx.drawImage(
-        this.spriteSheet,
-        this.frameIndex*42,
-        0,
-        42, //23
-        42, //162
-        this.playerX,
-        this.playerY,
-        42, //23
-        42) //162    
-    
-    this.frameIndexCounter();
     
 }
 Animation.prototype.update = function(x,y){
     this.playerX = x;
     this.playerY = y;
+}
+
+Animation.prototype.draw =  function () {
+    this.ctx.drawImage(
+        this.spriteSheet,
+        this.frameIndex*42,
+        0,
+        42, //23
+        42, //162
+        this.playerX,
+        this.playerY,
+        42, //23
+        42) //162    
+    
+    this.frameIndexCounter();
 }
    

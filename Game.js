@@ -93,105 +93,108 @@ Game.prototype.startLoop = function() {
   // change to switch
     this.handleKey = function(event) {
 			
-        if (event.key === 'ArrowUp' && this.player.y>0) {
-        this.player.setDirection(-1);
-            this.player.y += this.player.speed*this.player.direction
-        
-        } else if (event.key === 'ArrowDown' && this.player.y<490) {
+			if (event.key === 'ArrowUp' && this.player.y>0) {
+			this.player.setDirection(-1);
+				this.player.y += this.player.speed*this.player.direction
 			
-                this.player.setDirection(1);
-                this.player.y += this.player.speed*this.player.direction
-        
-        }
-        else if (event.key === 'ArrowLeft' && this.player.x>0) {
-					this.player.runAnimation.knightWalkLeft();
-            this.player.setDirection(-1);
-            this.player.x += this.player.speed*this.player.direction
-            
-            }
-        else if (event.key === 'ArrowRight' && this.player.x<690){
-						this.player.runAnimation.knightWalk();
+			} else if (event.key === 'ArrowDown' && this.player.y<490) {
+		
+				this.player.setDirection(1);
+				this.player.y += this.player.speed*this.player.direction
 			
-						this.player.setDirection(1);
-						
-						this.player.x += this.player.speed*this.player.direction
-				}
+			}
+			else if (event.key === 'ArrowLeft' && this.player.x>0) {
+				this.player.runAnimation.knightWalkLeft();
+				this.player.setDirection(-1);
+				this.player.x += this.player.speed*this.player.direction
+					
+			}
+			else if (event.key === 'ArrowRight' && this.player.x<690){
+				this.player.runAnimation.knightWalk();
+				this.player.setDirection(1);
+				
+				this.player.x += this.player.speed*this.player.direction
+			}
 				
 		}.bind(this)
 		
 		this.handleAttack = function(event) {
-				if(event.key === '/' && this.playersTouching){
-					console.log("attacked success");
-					attackSound.play();
-					this.playersTouching = false;
-					fallSound.play();
-					this.finishGame();
-				} else if(event.key === "/" && this.playerTouchingComputerPlayer){
-						console.log("attack enemy");
-						
-				}	else if (event.key === '/') {
-					console.log("random attack");
-					this.player.runAnimation.knightAttack();
-					attackSound2.play();
-				}
+			if(event.key === '/' && this.playersTouching){
+				console.log("attacked success");
+				attackSound.play();
+				this.playersTouching = false;
+				fallSound.play();
+				this.finishGame();
+			} else if(event.key === "/" && this.playerTouchingComputerPlayer){
+					console.log("attack enemy");
+					
+			}	else if (event.key === '/') {
+				console.log("random attack");
+				this.player.runAnimation.knightAttack();
+				attackSound2.play();
+			}
 		}.bind(this);
-
-		//player1
-		document.addEventListener('keydown', this.handleAttack);	
-		document.addEventListener('keydown', this.handleKey);
-
-		//player2
-		document.addEventListener('keydown', this.handlePlayer2Attack);	
-		document.addEventListener('keydown', this.handlePlayer2Key);
 		
+		this.backToIdle = function(event){
+			//if(event.key === "ArrowLeft"){
+			this.player.runAnimation.renderKnight();
+			this.player2.runAnimation.renderKnight();
+			//}
+		}.bind(this);
+		//player1
+		document.addEventListener('keydown', this.handleKey);
+		document.addEventListener('keydown', this.handleAttack);	
+		//back to idle
+		document.addEventListener('keyup', this.backToIdle);
+
 		 // change to switch
     this.handlePlayer2Key = function(event) {
+		
+			if (event.key === 'w' && this.player2.y>0) {
+				this.player2.setDirection(-1);
+				this.player2.y += this.player2.speed*this.player2.direction
 			
-        if (event.key === 'w' && this.player2.y>0) {
-        this.player2.setDirection(-1);
-            this.player2.y += this.player2.speed*this.player2.direction
-        
-        } else if (event.key === 's' && this.player2.y<490) {
+			} else if (event.key === 's' && this.player2.y<490) {
+		
+				this.player2.setDirection(1);
+				this.player2.y += this.player2.speed*this.player2.direction
 			
-                this.player2.setDirection(1);
-                this.player2.y += this.player2.speed*this.player2.direction
-        
-        }
-        else if (event.key === 'a' && this.player2.x>0) {
-					this.player2.runAnimation.knightWalkLeft();
-            this.player2.setDirection(-1);
-            this.player2.x += this.player2.speed*this.player2.direction
-            
-            }
-        else if (event.key === 'd' && this.player2.x<690){
-						this.player2.runAnimation.knightWalk();
-			
-						this.player2.setDirection(1);
-						
-						this.player2.x += this.player2.speed*this.player2.direction
-				}
+			}
+			else if (event.key === 'a' && this.player2.x>0) {
+				this.player2.runAnimation.knightWalkLeft();
+				this.player2.setDirection(-1);
+				this.player2.x += this.player2.speed*this.player2.direction
+					
+			}
+			else if (event.key === 'd' && this.player2.x<690){
+				this.player2.runAnimation.knightWalk();
+	
+				this.player2.setDirection(1);
+				
+				this.player2.x += this.player2.speed*this.player2.direction
+			}
 				
 		}.bind(this)
 		
 		this.handlePlayer2Attack = function(event) {
-				if(event.key === 'z' && this.playersTouching){
-						console.log("attacked success");
-						attackSound.play();
-						this.playersTouching = false;
-						this.player.runAnimation.die();
-						fallSound.play();
-						this.finishGame();
-				}else if (event.key === 'z') {
-						console.log("random attack");
-						this.player2.runAnimation.knightAttack();
-						attackSound2.play();
-				} else if(event.key === "z" && this.collidedEnemy){
-					this.animation.die();
-				}
+			if(event.key === 'z' && this.playersTouching){
+				console.log("attacked success");
+				attackSound.play();
+				this.playersTouching = false;
+				this.player.runAnimation.die();
+				fallSound.play();
+				this.finishGame();
+			}else if (event.key === 'z') {
+				console.log("random attack");
+				this.player2.runAnimation.knightAttack();
+				attackSound2.play();
+			} else if(event.key === "z" && this.collidedEnemy){
+				this.animation.die();
+			}
 		}.bind(this);
    //player2
+	 	document.addEventListener('keydown', this.handlePlayer2Key);
 		document.addEventListener('keydown', this.handlePlayer2Attack);	
-		document.addEventListener('keydown', this.handlePlayer2Key);
 
     var gameLoop = function() {
         
