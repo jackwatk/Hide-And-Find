@@ -12,13 +12,15 @@ function Game(canvasElement) {
 		this.player = null;
 		this.player2 = null;
 		this.animation = null;
-		this.computerPlayersAmount = 1;
+		this.computerPlayersAmount = 10;
 		this.polesAmount = 5;
 	this.computerPlayers = [];
 	this.poles = [];
 	this.playerTouchingComputerPlayer = false;
 	this.playersTouching = false;
 	this.chimeCount = 0;
+	this.playerPressed = [];
+	this.playerKeys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "a","d","w","s"];
 		
 }
 var poleSound = new Audio("pole.wav");
@@ -29,8 +31,6 @@ var fallSound = new Audio("fall.wav");
 Game.prototype.start = function() {
     this.gameIsOver = false;
     this.startLoop();
-    
-
 } 
 
 Game.prototype.startLoop = function() {
@@ -81,43 +81,56 @@ Game.prototype.startLoop = function() {
 				}
 				this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
 			}
-	
-		
-	
-			
-			
 		}
     //get context
 
     //button handling for player
-  // change to switch
+	// change to switch
+			
     this.handleKey = function(event) {
 			
-			if (event.key === 'ArrowUp' && this.player.y>0) {
-			this.player.setDirection(-1);
-				this.player.y += this.player.speed*this.player.direction
-			
-			} else if (event.key === 'ArrowDown' && this.player.y<490) {
-		
-				this.player.setDirection(1);
-				this.player.y += this.player.speed*this.player.direction
-			
+			if (this.playerKeys.includes(event.key) && !this.playerPressed.includes(event.key)) {
+				this.playerPressed.push(event.key);
 			}
-			else if (event.key === 'ArrowLeft' && this.player.x>0) {
-				this.player.runAnimation.knightWalkLeft();
-				this.player.setDirection(-1);
-				this.player.x += this.player.speed*this.player.direction
-					
-			}
-			else if (event.key === 'ArrowRight' && this.player.x<690){
-				this.player.runAnimation.knightWalk();
-				this.player.setDirection(1);
-				
-				this.player.x += this.player.speed*this.player.direction
-			}
-				
+			console.log(this.playerPressed)
+
+			this.playerPressed.forEach(function(key){
+				if(key === "ArrowLeft"){
+					this.player.moveLeft();
+				}
+				if(key === "ArrowRight"){
+					this.player.moveRight();
+				}
+				if(key === "ArrowUp"){
+					this.player.moveUp();
+				}
+				if(key === "ArrowDown"){
+					this.player.moveDown();
+				}
+				if(key === "a"){
+					this.player2.moveLeft();
+				}
+				if(key === "d"){
+					this.player2.moveRight();
+				}
+				if(key === "w"){
+					this.player2.moveUp();
+				}
+				if(key === "s"){
+					this.player2.moveDown();
+				}
+			}.bind(this))
+		}.bind(this);
+			//player1
+
+		var handleKeyUp = function () {
+			this.playerPressed = []
 		}.bind(this)
-		
+
+		document.addEventListener('keydown', this.handleKey);
+		document.addEventListener('keyup', handleKeyUp)
+		document.addEventListener('keydown', this.handleAttack);	
+			
 		this.handleAttack = function(event) {
 			if(event.key === '/' && this.playersTouching){
 				console.log("attacked success");
@@ -142,39 +155,13 @@ Game.prototype.startLoop = function() {
 			//}
 		}.bind(this);
 		//player1
-		document.addEventListener('keydown', this.handleKey);
-		document.addEventListener('keydown', this.handleAttack);	
+		document.addEventListener('keydown', this.handleAttack);
+	
 		//back to idle
 		document.addEventListener('keyup', this.backToIdle);
 
 		 // change to switch
-    this.handlePlayer2Key = function(event) {
-		
-			if (event.key === 'w' && this.player2.y>0) {
-				this.player2.setDirection(-1);
-				this.player2.y += this.player2.speed*this.player2.direction
-			
-			} else if (event.key === 's' && this.player2.y<490) {
-		
-				this.player2.setDirection(1);
-				this.player2.y += this.player2.speed*this.player2.direction
-			
-			}
-			else if (event.key === 'a' && this.player2.x>0) {
-				this.player2.runAnimation.knightWalkLeft();
-				this.player2.setDirection(-1);
-				this.player2.x += this.player2.speed*this.player2.direction
-					
-			}
-			else if (event.key === 'd' && this.player2.x<690){
-				this.player2.runAnimation.knightWalk();
-	
-				this.player2.setDirection(1);
-				
-				this.player2.x += this.player2.speed*this.player2.direction
-			}
-				
-		}.bind(this)
+   
 		
 		this.handlePlayer2Attack = function(event) {
 			if(event.key === 'z' && this.playersTouching){
@@ -193,7 +180,7 @@ Game.prototype.startLoop = function() {
 			}
 		}.bind(this);
    //player2
-	 	document.addEventListener('keydown', this.handlePlayer2Key);
+	 	//document.addEventListener('keydown', this.handlePlayer2Key);
 		document.addEventListener('keydown', this.handlePlayer2Attack);	
 
     var gameLoop = function() {
@@ -220,7 +207,8 @@ Game.prototype.startLoop = function() {
     }.bind(this);
   
     gameLoop();
-  }
+	}
+	
 
 Game.prototype.updateAll = function(){
     //player
@@ -272,7 +260,7 @@ Game.prototype.updateAll = function(){
 			}.bind(this));
 			//check pole collisions
 			this.poles.forEach(function(pole){
-				if (this.player.collidesWithPole(pole) && pole.hasChimed === false) {
+				if (this.player.collidesWithPole(pole) && pole.hasChimed === false || this.player2.collidesWithPole(pole) && pole.hasChimed === false) {
 							console.log("collision Pole");
 							pole.hasChimed = true;
 							this.chimeCount = this.chimeCount + 1;

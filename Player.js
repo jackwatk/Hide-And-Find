@@ -119,3 +119,29 @@ Player.prototype.collidesWithComputerPlayer = function(computerPlayer) {
    
     return collidesRight && collidesBottom && collidesTop && collidesLeft;
 }
+
+
+//movement
+Player.prototype.moveLeft = function(){
+    console.log("moving player 1 left");
+    this.setDirection(-1);
+    this.x += this.speed*this.direction
+    this.runAnimation.knightWalkLeft();
+}
+
+Player.prototype.moveRight = function(){
+    console.log("moving player 1 right");
+    this.runAnimation.knightWalk();
+	this.setDirection(1);
+	this.x += this.speed*this.direction
+}
+Player.prototype.moveUp = function(){
+    console.log("moving player 1 up");
+    this.setDirection(-1);
+	this.y += this.speed*this.direction
+}
+Player.prototype.moveDown = function(){
+    console.log("moving player 1 down");
+    this.setDirection(1);
+				this.y += this.speed*this.direction
+}
