@@ -12,7 +12,7 @@ function Game(canvasElement) {
 		this.player = null;
 		this.player2 = null;
 		this.animation = null;
-		this.computerPlayersAmount = 21;
+		this.computerPlayersAmount = 1;
 		this.polesAmount = 5;
 	this.computerPlayers = [];
 	this.poles = [];
@@ -86,7 +86,20 @@ Game.prototype.startLoop = function() {
 
     //button handling for player
 	// change to switch
-			
+	var handleKeyUp = function (event) {
+				this.player.setDirectionX(0);
+				this.player.setDirectionY(0);
+				this.player2.setDirectionX(0);
+				this.player2.setDirectionY(0);
+		console.log(this.playerPressed)
+		var eventKeyIndex = this.playerPressed.indexOf(event.key)
+		this.playerPressed.splice(eventKeyIndex,1);
+		if(this.playerPressed.length) {
+			console.log(this.playerPressed)
+			handleKey();
+		}
+	}.bind(this)
+	
     var handleKey = function(event) {
 			if (event) {
 				if (this.playerKeys.includes(event.key) && !this.playerPressed.includes(event.key)) {
@@ -96,42 +109,34 @@ Game.prototype.startLoop = function() {
 
 			this.playerPressed.forEach(function(key){
 				if(key === "ArrowLeft"){
-					this.player.moveLeft();
-				}
+					this.player.setDirectionX(-1);
+				};
 				if(key === "ArrowRight"){
-					this.player.moveRight();
+					this.player.setDirectionX(1);
 				}
 				if(key === "ArrowUp"){
-					this.player.moveUp();
+					this.player.setDirectionY(-1);
 				}
 				if(key === "ArrowDown"){
-					this.player.moveDown();
+					this.player.setDirectionY(1);
 				}
 				if(key === "a"){
-					this.player2.moveLeft();
+					this.player2.setDirectionX(-1);
 				}
 				if(key === "d"){
-					this.player2.moveRight();
+				this.player2.setDirectionX(1);
 				}
 				if(key === "w"){
-					this.player2.moveUp();
+					this.player2.setDirectionY(-1);
 				}
 				if(key === "s"){
-					this.player2.moveDown();
+					this.player2.setDirectionY(1);
 				}
 			}.bind(this))
 		}.bind(this);
 			//player1
 
-		var handleKeyUp = function (event) {
-			console.log(this.playerPressed)
-			var eventKeyIndex = this.playerPressed.indexOf(event.key)
-			this.playerPressed.splice(eventKeyIndex,1);
-			if(this.playerPressed.length) {
-				console.log(this.playerPressed)
-				handleKey();
-			}
-		}.bind(this)
+		
 
 		document.addEventListener('keydown', handleKey);
 		document.addEventListener('keyup', handleKeyUp)

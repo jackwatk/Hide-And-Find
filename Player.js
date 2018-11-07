@@ -7,8 +7,10 @@ function Player(canvasElement, lives){
     this.size = 20;
     this.lives = lives;
 	this.ctx = this.canvasElement.getContext('2d');
-	this.speed = 5;
-    this.direction = 0;
+	this.speed = 1;
+   /*  this.direction = 0; */
+    this.directionY = 0;
+    this.directionX = 0;
     this.runAnimation = new Animation(this.x, this.y);
 }
 
@@ -18,18 +20,22 @@ Player.prototype.update = function(){
 
     
     
-    if (this.y <= this.size / 2) {
-        this.setDirection(1);
+    if (this.directionX === 1) {
+            this.x += this.speed * this.directionX;
       }
     
-      if (this.y >= this.size / 2) {
-        this.setDirection(-1);
+      if (this.directionX === -1) {
+        this.x += this.speed * this.directionX;
       }
-      if (this.x >= this.size / 2) {
-        this.setDirection(-1);
+      if (this.directionY === 1) {
+        this.y += this.speed * this.directionY;
+        
       }
-      if (this.x <= this.size / 2) {
-        this.setDirection(1);
+      if (this.directionY === -1) {
+        this.y += this.speed * this.directionY;
+        
+      } else {
+          console.log("idle")
       }
      
         this.runAnimation.update(this.x, this.y)
@@ -38,10 +44,27 @@ Player.prototype.update = function(){
     
 }
 
-Player.prototype.setDirection = function(direction){
-        this.direction = direction;   
+Player.prototype.setDirectionX = function(directionX){
+        this.directionX = directionX;
+        if(this.directionX === -1){
+            this.runAnimation.knightWalkLeft();
+        } else if(this.directionX === 1){
+            this.runAnimation.knightWalk();
+        } else{
+            this.runAnimation.renderKnight();
+        }
+         
 }
-
+Player.prototype.setDirectionY = function(directionY){
+        this.directionY = directionY;
+        if(this.directionY === -1){
+            this.runAnimation.knightWalkLeft();
+        } else if(this.directionY === 1){
+            this.runAnimation.knightWalk();
+        } else{
+            this.runAnimation.renderKnight();
+        }   
+}
 Player.prototype.draw = function(){
         this.runAnimation.draw();
 }
@@ -99,12 +122,10 @@ Player.prototype.moveRight = function(){
 	this.x += this.speed*this.direction
 }
 Player.prototype.moveUp = function(){
-   
     this.setDirection(-1);
 	this.y += this.speed*this.direction
 }
 Player.prototype.moveDown = function(){
-    
     this.setDirection(1);
-	this.y += this.speed*this.direction
+				this.y += this.speed*this.direction
 }
