@@ -10,6 +10,9 @@ function Animation(playerX,playerY){
     this.amountOfFrames = 3;
     this.playerX = playerX;
     this.playerY = playerY;
+    this.imageWidth = 42;
+    this.timeOutId;
+    this.knightAttacking = false;
 }
 
 //create counter for the frame index for slow down
@@ -34,7 +37,7 @@ Animation.prototype.renderKnight = function(game){
 }
 //walk - right
 Animation.prototype.knightWalk = function(game){
-     
+    this.imageWidth = 42;
     //this.spriteSheet = new Image();
     
     this.spriteSheet.src = 'knight-walk.png';
@@ -42,26 +45,59 @@ Animation.prototype.knightWalk = function(game){
 //walk - left
 
 Animation.prototype.knightWalkLeft = function(game){
-     
+    this.imageWidth = 42;
     //this.spriteSheet = new Image();
     this.spriteSheet.src = 'knight-walk-left.png';
 }
 
 //die
 Animation.prototype.die = function(game){
-
+    this.imageWidth = 42;
     //this.spriteSheet = new Image();
     this.spriteSheet.src = 'knight-death.png';
     this.amountOfFrames = 10;
 }
 
 Animation.prototype.knightAttack = function(game){
-    this.renderKnight();
-    //this.spriteSheet = new Image();
-    this.spriteSheet.src = 'knight-attack-3.png';
-    this.amountOfFrames = 8;
+    this.knightAttacking = true;
+    this.timeOutId = setTimeout(this.knightAttack2.bind(this),200);
     
-}
+    
+};
+
+Animation.prototype.knightAttackLeft = function(game){
+    this.timeOutId = setTimeout(this.knightAttackLeft2.bind(this),200);
+    
+};
+
+
+Animation.prototype.knightAttack2 = function(game){
+    if(this.knightAttacking = true){
+    this.imageWidth = 42;
+    //this.spriteSheet = new Image();
+    this.spriteSheet.src = 'knight-attacking.png';
+    this.amountOfFrames = 8;
+    }
+    else{
+        this.renderKnight();
+    }
+    this.knightAttacking = false;
+    
+    clearTimeout(this.timeOutId)
+    this.renderKnight();
+    
+};
+
+Animation.prototype.knightAttackLeft2 = function(game){
+    this.imageWidth = 42;
+    //this.spriteSheet = new Image();
+    this.spriteSheet.src = 'knight-attacking-left.png';
+    this.amountOfFrames = 8;
+    clearTimeout(this.timeOutId);
+    this.renderKnight();
+    
+};
+
 Animation.prototype.update = function(x,y){
     this.playerX = x;
     this.playerY = y;
@@ -72,12 +108,12 @@ Animation.prototype.draw =  function () {
         this.spriteSheet,
         this.frameIndex*42,
         0,
-        42, //23
-        42, //162
+        this.imageWidth , //23
+        this.imageWidth , //162
         this.playerX,
         this.playerY,
-        42, //23
-        42) //162    
+        this.imageWidth , //23
+        this.imageWidth ) //162    
     
     this.frameIndexCounter();
 }

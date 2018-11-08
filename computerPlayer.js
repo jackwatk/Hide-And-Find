@@ -4,7 +4,7 @@ function ComputerPlayer(canvasElement){
     this.x = Math.random()*650;
 	this.y = Math.random()*400;
     this.canvasElement = canvasElement;
-    this.size = 20;
+    this.size = 40;
 	this.ctx = this.canvasElement.getContext('2d');
 	this.speed = 1;
     this.directionY = 0;
@@ -41,7 +41,10 @@ ComputerPlayer.prototype.setDirection = function(direction){
         this.runAnimation.knightWalkLeft();
     } else if(this.directionY === 1 || this.directionX === 1){
         this.runAnimation.knightWalk();
-    } else{
+    } else if(this.directionY === 3){
+        this.runAnimation.die();
+    }
+        else{
         this.runAnimation.renderKnight();
     }
 }

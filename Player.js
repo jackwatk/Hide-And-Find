@@ -4,7 +4,7 @@ function Player(canvasElement, lives){
     this.x = Math.random()*650;
 	this.y = Math.random()*400;
     this.canvasElement = canvasElement;
-    this.size = 20;
+    this.size = 40;
     this.lives = lives;
 	this.ctx = this.canvasElement.getContext('2d');
 	this.speed = 1;
@@ -12,6 +12,7 @@ function Player(canvasElement, lives){
     this.directionY = 0;
     this.directionX = 0;
     this.runAnimation = new Animation(this.x, this.y);
+    this.winner = 0;
 }
 
 
@@ -34,9 +35,7 @@ Player.prototype.update = function(){
       if (this.directionY === -1) {
         this.y += this.speed * this.directionY;
         
-      } else {
-          console.log("idle")
-      }
+      } 
      
         this.runAnimation.update(this.x, this.y)
             

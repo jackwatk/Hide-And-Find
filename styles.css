@@ -76,8 +76,12 @@ html {
   main {
     text-align: center;
     background-image: url(paper.png);
+    background-size: cover;
     display: grid;
     justify-content: center;
+    border-bottom: 3px solid;
+    border-top: 3px dotted;
+    padding: 40px;
   }
   main img {
     max-width: 70%;
@@ -105,7 +109,6 @@ html {
     background-color: blue;
     border-radius: 2px;
     align-self: center;
-    width: 30%;
     margin: 3%;
     padding: 15px;
     color: #fff;
@@ -113,9 +116,24 @@ html {
     font-family: 'Press Start 2P', cursive;
 }
   
-  .button-alt {
-    color: blue;
-    background-color: #fff;
+  .btn-instruction {
+    background-color: #2b2bda;
+    border-radius: 2px;
+    align-self: center;
+    width: 30%;
+    font-size: 11px;
+    margin: 3%;
+    padding: 15px;
+    color: #fff;
+    border: 3px groove #00000069;
+    font-family: 'Press Start 2P', cursive;
+  }
+  .btn-instruction:hover{
+    width: 400px;
+    height: 400px;
+    position: absolute;
+    top: 0;
+    right: 20%;
   }
   .btn-start {
     background-color: #e23434;
