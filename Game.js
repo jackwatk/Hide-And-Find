@@ -163,8 +163,6 @@ Game.prototype.startLoop = function() {
 					else if(event.key === "/" && this.playerTouchingComputerPlayer){
 								console.log("player 1 attack computer");
 								this.computerPlayerAttacked = true;
-								
-								
 								attackSound2.play();
 							if(this.player.DirectionX === -1 || this.player.DirectionY === -1){
 								this.player.runAnimation.knightAttackLeft();
@@ -185,6 +183,7 @@ Game.prototype.startLoop = function() {
 				else if(this.player.DirectionX === 1 || this.player.DirectionY === 1){
 							this.player.runAnimation.knightAttack();
 						}
+						
 			}
 		}.bind(this);
 		
@@ -208,7 +207,7 @@ Game.prototype.startLoop = function() {
 				this.finishGame();
 			}else if (event.key === 'z') {
 				console.log("random attack");
-				this.player2.runAnimation.knightAttackLeft();
+				this.player2.runAnimation.knightAttack();
 				attackSound2.play();
 			} else if(event.key === "z" && this.collidedEnemy){
 				console.log("nothing");

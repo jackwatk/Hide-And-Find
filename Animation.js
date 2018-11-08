@@ -30,14 +30,14 @@ Animation.prototype.frameIndexCounter = function(){
 }
 
 Animation.prototype.renderKnight = function(game){
-    
+    this.amountOfFrames = 3;
     //this.spriteSheet = new Image();
     this.spriteSheet.src = "knight-idle.png";
     
 }
 //walk - right
 Animation.prototype.knightWalk = function(game){
-    this.imageWidth = 42;
+    this.amountOfFrames = 3;
     //this.spriteSheet = new Image();
     
     this.spriteSheet.src = 'knight-walk.png';
@@ -45,6 +45,7 @@ Animation.prototype.knightWalk = function(game){
 //walk - left
 
 Animation.prototype.knightWalkLeft = function(game){
+    this.amountOfFrames = 3;
     this.imageWidth = 42;
     //this.spriteSheet = new Image();
     this.spriteSheet.src = 'knight-walk-left.png';
@@ -60,7 +61,9 @@ Animation.prototype.die = function(game){
 
 Animation.prototype.knightAttack = function(game){
     this.knightAttacking = true;
-    this.timeOutId = setTimeout(this.knightAttack2.bind(this),200);
+    //time out is getting rid of idle?
+    this.timeOutId = setTimeout(this.knightAttack2.bind(this),500);
+    this.renderKnight();
     
     
 };
@@ -72,6 +75,7 @@ Animation.prototype.knightAttackLeft = function(game){
 
 
 Animation.prototype.knightAttack2 = function(game){
+    
     if(this.knightAttacking = true){
     this.imageWidth = 42;
     //this.spriteSheet = new Image();
@@ -84,15 +88,13 @@ Animation.prototype.knightAttack2 = function(game){
     this.knightAttacking = false;
     
     clearTimeout(this.timeOutId)
-    this.renderKnight();
     
 };
 
 Animation.prototype.knightAttackLeft2 = function(game){
     this.imageWidth = 42;
     //this.spriteSheet = new Image();
-    this.spriteSheet.src = 'knight-attacking-left.png';
-    this.amountOfFrames = 8;
+    this.spriteSheet.src = 'knight-attacking.png';
     clearTimeout(this.timeOutId);
     this.renderKnight();
     
