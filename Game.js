@@ -145,7 +145,7 @@ Game.prototype.startLoop = function() {
 		this.handleAttack = function(event) {
 		//attack player
 					
-			if(event.key === '/' && this.playersTouching){
+			if(event.key === 'l' && this.playersTouching){
 							console.log("attacked success");
 							this.winner = 0;
 							attackSound.play();
@@ -160,7 +160,7 @@ Game.prototype.startLoop = function() {
 							this.finishGame();
 					}
 			
-					else if(event.key === "/" && this.playerTouchingComputerPlayer){
+					else if(event.key === "l" && this.playerTouchingComputerPlayer){
 								console.log("player 1 attack computer");
 								this.computerPlayerAttacked = true;
 								attackSound2.play();
@@ -173,7 +173,7 @@ Game.prototype.startLoop = function() {
 						
 					}	
 				//missed attack
-					else if (event.key === '/') {
+					else if (event.key === 'l') {
 					console.log("random attack");
 					this.player.runAnimation.knightAttack();
 					attackSound2.play();

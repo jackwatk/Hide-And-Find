@@ -95,7 +95,7 @@ function main(){
           if(winner === 0){
           header2.innerText = localStorage.getItem('name1') + " won!";
           } else if(winner === 1){
-            header2.innerText = localStorage.getItem('name2') + "won!";
+            header2.innerText = localStorage.getItem('name2') + " won!";
           } else if(winner === 2){
             header2.innerText = localStorage.getItem('name1') + " touched all poles!";
           }else if(winner === 3){
