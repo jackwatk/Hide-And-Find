@@ -14,8 +14,8 @@ function main(){
     var startButton;
     var restartButton;
     var quitButton;
-    var playerName = localStorage.setItem('name1', 'Player 1 Won');
-    var playerTwoName = localStorage.setItem('name2', 'Player 2 Won');
+    var playerName = localStorage.setItem('name1', 'Player 1');
+    var playerTwoName = localStorage.setItem('name2', 'Player 2');
     var header2;
 
     buildSplash();
@@ -27,7 +27,19 @@ function main(){
             <div class="eye"><img src="hide.png"></div>
             <div class="container">
             <button class="btn-start">Start</button>
-            <a class="btn-instruction">Instructions</a>
+            <a class="btn-instruction">Instructions
+                    <ul>Rules
+                        <li>All Characters look the same</li>
+                        <li>Two are players - the rest are computer players<li>
+                        <li>TO WIN! - Find the other player and attack them<li>
+                        <li>OR - touch all 5 poles (they ding, so you'll be easier to find)</li>
+                    </ul>
+                    <ul>Buttons
+                        <li>PLAYER 1 (Arrows - L to attack)</li>
+                        <li>PLAYER 2 (AWSD - z to attack)<li>
+                    </ul>
+
+            </a>
             </div>
             </div>
             </main>`)
@@ -81,10 +93,17 @@ function main(){
           console.log(winner);
           console.log(localStorage.getItem('name1'));
           if(winner === 0){
-          header2.innerText = localStorage.getItem('name1');
+          header2.innerText = localStorage.getItem('name1') + " won!";
           } else if(winner === 1){
-            header2.innerText = localStorage.getItem('name2');
-          } else{
+            header2.innerText = localStorage.getItem('name2') + "won!";
+          } else if(winner === 2){
+            header2.innerText = localStorage.getItem('name1') + " touched all poles!";
+          }else if(winner === 3){
+            header2.innerText = localStorage.getItem('name2') + " touched all poles!";
+          }
+          
+          
+          else{
               header2.innerText = "You quit :("
           }
           

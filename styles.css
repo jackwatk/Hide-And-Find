@@ -127,6 +127,15 @@ html {
     color: #fff;
     border: 3px groove #00000069;
     font-family: 'Press Start 2P', cursive;
+    transition: width 1s;
+  }
+  .btn-instruction a{
+    display: none;
+    
+  }
+  .btn-instruction ul{
+    display: none;
+    list-style-type: none;
   }
   .btn-instruction:hover{
     width: 400px;
@@ -135,6 +144,10 @@ html {
     top: 0;
     right: 20%;
   }
+  .btn-instruction:hover ul{
+    display: inline-block;
+  }
+  
   .btn-start {
     background-color: #e23434;
     border-radius: 2px;
@@ -146,12 +159,22 @@ html {
     border: 3px groove #00000069;
     font-family: 'Press Start 2P', cursive;
   }
+  
   canvas{
       border: 2px solid black;
       margin: auto;
       margin-top: 20px;
   }
-  
+  @media screen and (min-width: 900px) {
+    .btn-instruction:hover{
+        width: 800px;
+        height: 700px;
+
+    }
+    .btn-instruction:hover a{
+        display: inline-block;
+      }
+  }
   /* ---- section ---- */
   
   

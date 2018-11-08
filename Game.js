@@ -12,14 +12,14 @@ function Game(canvasElement) {
 		this.player = null;
 		this.player2 = null;
 		this.animation = null;
-		this.computerPlayersAmount = 10;
+		this.computerPlayersAmount = 13;
 		this.polesAmount = 5;
 	this.computerPlayers = [];
 	this.poles = [];
 	this.playerTouchingComputerPlayer = false;
 	this.computerPlayerAttacked = false;
 	this.playersTouching = false;
-	this.chimeCount = 0;
+	//this.chimeCount = 0;
 	this.playerPressed = [];
 	this.playerKeys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "a","d","w","s"];
 	this.winner = -1;
@@ -232,11 +232,13 @@ Game.prototype.startLoop = function() {
 				requestAnimationFrame(gameLoop);
 				
 			}
-			if (this.chimeCount === 5){
+			if (this.player.chimeCount === 5){
+				this.winner = 2;
 				this.finishGame();
-				
-				
-				
+			}
+			if (this.player2.chimeCount === 5){
+				this.winner = 3;
+				this.finishGame();
 			}
     }.bind(this);
   
@@ -298,14 +300,21 @@ Game.prototype.updateAll = function(){
 			}.bind(this));
 			//check pole collisions
 			this.poles.forEach(function(pole){
-				if (this.player.collidesWithPole(pole) && pole.hasChimed === false || this.player2.collidesWithPole(pole) && pole.hasChimed === false) {
+				if (this.player.collidesWithPole(pole) && pole.hasChimedForPlayer === false) {
 							console.log("collision Pole");
-							pole.hasChimed = true;
-							this.chimeCount = this.chimeCount + 1;
-							console.log(this.chimeCount);
+							pole.hasChimedForPlayer = true;
+							this.player.chimeCount = this.player.chimeCount + 1;
+							console.log(this.player.chimeCount);
 							
 							poleSound.play();
 							
+				} else if(this.player2.collidesWithPole(pole) && pole.hasChimedForPlayer2=== false){
+					console.log("collision Pole player 2");
+							pole.hasChimedForPlayer2 = true;
+							this.player2.chimeCount = this.player2.chimeCount + 1;
+							console.log(this.player2.chimeCount);
+							
+							poleSound.play();
 				}
 					}.bind(this));
 				//check player collisions
