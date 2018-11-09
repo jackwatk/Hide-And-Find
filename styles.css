@@ -115,6 +115,7 @@ html {
     border: 3px groove #00000069;
     font-family: 'Press Start 2P', cursive;
 }
+
   
   .btn-instruction {
     background-color: #2b2bda;
@@ -136,18 +137,61 @@ html {
   .btn-instruction ul{
     display: none;
     list-style-type: none;
+    padding: 0px;
   }
+  .btn-instruction div{
+    display: none;
+    }
+.btn-instruction:hover div{
+        display: inline;
+        }
   .btn-instruction:hover{
     width: 400px;
     height: 400px;
     position: absolute;
     top: 0;
     right: 20%;
+    padding: 72px;
+    padding-top: 15px;
   }
   .btn-instruction:hover ul{
     display: inline-block;
+    padding: 0px;
+  }
+  .btn-instruction:hover span{
+
+    text-decoration: underline;
+    
+  }
+
+  .btn-instruction:hover p{
+    margin: 10px;
+    
   }
   
+  .instruction-image{
+    max-width: 141px;
+  }
+  #buttons{
+    clear: both;
+    border: 3px double;
+    padding: 10px;
+    width: 100%;
+  }
+  #buttons li{
+      padding: 1%;
+  }
+  .knight-image-left{
+    float: left;
+  }
+  .knight-image-right{
+      max-width: 10%;
+  }
+  #keyboard {
+    color: white;
+    padding: 1%;
+    border: 1px solid;
+  }
   .btn-start {
     background-color: #e23434;
     border-radius: 2px;

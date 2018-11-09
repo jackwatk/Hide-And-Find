@@ -14,6 +14,7 @@ function Player(canvasElement, lives){
     this.runAnimation = new Animation(this.x, this.y);
     this.winner = 0;
     this.chimeCount = 0;
+    
 }
 
 

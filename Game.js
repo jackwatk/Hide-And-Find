@@ -23,6 +23,9 @@ function Game(canvasElement) {
 	this.playerPressed = [];
 	this.playerKeys = ["ArrowLeft", "ArrowRight", "ArrowUp", "ArrowDown", "a","d","w","s"];
 	this.winner = -1;
+	this.enemyAttacked = false;
+	this.dieTimeout;
+	this.gameOverCallback;
 }
 var poleSound = new Audio("pole.wav");
 var attackSound = new Audio("attack.wav");
@@ -87,7 +90,7 @@ Game.prototype.startLoop = function() {
 
     //button handling for player
 	// change to switch
-	var handleKeyUp = function (event) {
+	this.handleKeyUp = function (event) {
 				this.player.setDirectionX(0);
 				this.player.setDirectionY(0);
 				this.player2.setDirectionX(0);
@@ -96,11 +99,11 @@ Game.prototype.startLoop = function() {
 		this.playerPressed.splice(eventKeyIndex,1);
 		if(this.playerPressed.length) {
 
-			handleKey();
+			this.handleKey();
 		}
 	}.bind(this)
 	
-    var handleKey = function(event) {
+    this.handleKey = function(event) {
 			if (event) {
 				if (this.playerKeys.includes(event.key) && !this.playerPressed.includes(event.key)) {
 					this.playerPressed.push(event.key);
@@ -138,8 +141,8 @@ Game.prototype.startLoop = function() {
 
 		
 
-		document.addEventListener('keydown', handleKey);
-		document.addEventListener('keyup', handleKeyUp)
+		document.addEventListener('keydown', this.handleKey);
+		document.addEventListener('keyup', this.handleKeyUp)
 		document.addEventListener('keydown', this.handleAttack);	
 			
 		this.handleAttack = function(event) {
@@ -151,18 +154,20 @@ Game.prototype.startLoop = function() {
 							attackSound.play();
 							this.playersTouching = false;
 							fallSound.play();
+							this.player.runAnimation.die();
+							this.dieTimeout = setTimeout(this.finishGame.bind(this),500);
 					if(this.player.DirectionX === -1 || this.player.DirectionY === -1){
 						this.player.runAnimation.knightAttackLeft();
 						
 					} else if(this.player.DirectionX === 1 || this.player.DirectionY === 1){
 							this.player.runAnimation.knightAttack();
-						}
-							this.finishGame();
+						}	
+							
 					}
 			
 					else if(event.key === "l" && this.playerTouchingComputerPlayer){
 								console.log("player 1 attack computer");
-								this.computerPlayerAttacked = true;
+								this.enemyAttacked = true;
 								attackSound2.play();
 							if(this.player.DirectionX === -1 || this.player.DirectionY === -1){
 								this.player.runAnimation.knightAttackLeft();
@@ -187,8 +192,7 @@ Game.prototype.startLoop = function() {
 			}
 		}.bind(this);
 		
-		//player1
-		document.addEventListener('keydown', this.handleAttack);
+		
 	
 		//back to idle
 		document.addEventListener('keyup', this.backToIdle);
@@ -204,13 +208,13 @@ Game.prototype.startLoop = function() {
 				this.playersTouching = false;
 				this.player.runAnimation.die();
 				fallSound.play();
-				this.finishGame();
+				this.dieTimeout = setTimeout(this.finishGame(),500);
 			}else if (event.key === 'z') {
 				console.log("random attack");
 				this.player2.runAnimation.knightAttack();
 				attackSound2.play();
 			} else if(event.key === "z" && this.collidedEnemy){
-				console.log("nothing");
+					this.enemyAttacked = true;
 			}
 		}.bind(this);
    //player2
@@ -230,7 +234,6 @@ Game.prototype.startLoop = function() {
 
 			if (!this.gameIsOver) {
 				requestAnimationFrame(gameLoop);
-				
 			}
 			if (this.player.chimeCount === 5){
 				this.winner = 2;
@@ -282,18 +285,18 @@ Game.prototype.updateAll = function(){
 	Game.prototype.checkAllCollisions = function(){
 		//check computer player collisions
 		this.computerPlayers.forEach(function(computerPlayer){
-				if(this.player.collidesWithComputerPlayer(computerPlayer) && this.computerPlayerAttacked){
-						computerPlayer.runAnimation.die();
-						this.computerPlayerAttacked = false;
-					
-			}else if (this.player.collidesWithComputerPlayer(computerPlayer)) {
-				console.log("collision computer");
-				this.playerTouchingComputerPlayer = true;
+			if(this.player.collidesWithComputerPlayer(computerPlayer) && this.enemyAttacked){
+					computerPlayer.runAnimation.die();
+					this.enemyAttacked = false;
 				
-	}
-				else{
-						this.playerTouchingComputerPlayer = false;
-				}
+			}else if (this.player.collidesWithComputerPlayer(computerPlayer)) {
+			console.log("collision computer");
+			this.playerTouchingComputerPlayer = true;
+			
+			}
+			else {
+					this.playerTouchingComputerPlayer = false;
+			}
 
 		
 			
@@ -332,18 +335,22 @@ Game.prototype.updateAll = function(){
 
   Game.prototype.onGameOverCallBack = function(callback){
        
-    this.gameOverCallback = callback;
+	this.gameOverCallback = callback;
 
   }
 
   Game.prototype.finishGame = function(){
-				
-		console.log("game finished")
-		console.log("before pass", this.winner);
-			this.gameOverCallback(this.winner);
-			
-      
-      this.gameIsOver = true;
+	document.removeEventListener('keydown', this.handleKey);
+	document.removeEventListener('keyup', this.handleKeyUp)
+	document.removeEventListener('keydown', this.handleAttack);
+	document.removeEventListener('keydown', this.handleAttack);
+	document.removeEventListener('keyup', this.backToIdle);
+	console.log("game finished")
+	console.log("before pass", this.winner);
+	this.gameOverCallback(this.winner);
+		
+
+	this.gameIsOver = true;
   }
 
  

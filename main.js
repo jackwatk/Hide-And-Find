@@ -6,6 +6,7 @@ function buildDom(html) {
     // increase children number if you want more divs declared later
     return div.children[0];
 }
+
 function main(){
     var splashScreen;
     var gameScreen;
@@ -18,7 +19,7 @@ function main(){
     var playerTwoName = localStorage.setItem('name2', 'Player 2');
     var header2;
 
-    buildSplash();
+   
     function buildSplash() {
         splashScreen =  buildDom(
             `<main>
@@ -27,17 +28,23 @@ function main(){
             <div class="eye"><img src="hide.png"></div>
             <div class="container">
             <button class="btn-start">Start</button>
-            <a class="btn-instruction">Instructions
+            <a class="btn-instruction">
+                    <span>Instructions</span>
                     <ul>Rules
                         <li>All Characters look the same</li>
                         <li>Two are players - the rest are computer players<li>
-                        <li>TO WIN! - Find the other player and attack them<li>
+                    </ul>
+                    <ul> To WIN!
+                        <li>Find the other player and attack them<li>
                         <li>OR - touch all 5 poles (they ding, so you'll be easier to find)</li>
                     </ul>
-                    <ul>Buttons
-                        <li>PLAYER 1 (Arrows - L to attack)</li>
-                        <li>PLAYER 2 (AWSD - z to attack)<li>
+                    <ul id ="buttons">Buttons
+                        <li>PLAYER 1 (Arrows - <span id="keyboard">L</span> to attack)</li>
+                        <li>PLAYER 2 (AWSD - <span id="keyboard">Z</span> to attack)<li>
                     </ul>
+                     <div class="knight-image-left"><p>You</p> <img class="instruction-image" src="knight.png"></div>
+                     <div class ="knight-image-right"><p>The guy she tells you not to worry about</p> <img class="instruction-image" src="knight.png"></div>
+                    
 
             </a>
             </div>
@@ -50,6 +57,7 @@ function main(){
 
         startButton.addEventListener('click',destroySplash);
     }
+    buildSplash();
 
     function destroySplash(){
         splashScreen.remove();
@@ -113,6 +121,7 @@ function main(){
     }
 
     function destroyGameOverScreen(){
+
         gameOverScreen.remove();
         restartButton.removeEventListener('click', destroyGameOverScreen);
         buildSplash();
