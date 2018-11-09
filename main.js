@@ -1,5 +1,5 @@
 'use strict';
-console.log("linked");
+
 function buildDom(html) {
     var div = document.createElement('div');
     div.innerHTML = html;
@@ -98,8 +98,7 @@ function main(){
           </main>`)
           document.body.append(gameOverScreen);
           header2 = document.querySelector('.winner');
-          console.log(winner);
-          console.log(localStorage.getItem('name1'));
+          
           if(winner === 0){
           header2.innerText = localStorage.getItem('name1') + " won!";
           } else if(winner === 1){
