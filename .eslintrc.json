@@ -11,9 +11,11 @@
       "console": false,
       "Game": false,
       "Player": false,
-      "computerPlayer": false,
+      "ComputerPlayer": false,
       "Pole": false,
-      "Animation": false
+      "Animation": false,
+      "Audio": false,
+      "Image": false
     },
     "rules": {
       "indent": [

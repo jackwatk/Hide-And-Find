@@ -11,6 +11,7 @@ html {
   body {
     margin: 0;
     padding: 0;
+    overflow: hidden;
   }
   
   
@@ -24,17 +25,26 @@ html {
   }
   
   h1 {
-      text-align: center;
-      font-family: 'Hanalei Fill', cursive;
-      font-size: 8vw;
-  }
+    text-align: center;
+    font-family: 'Hanalei Fill', cursive;
+    font-size: 8vw;
+    margin: 0;
+    color: #e23434;
+    text-shadow: -11px -20px 20px #241e25;
+    padding: 30px;
+}
   
-  h2 {}
+  
+  h2 {
+    color: #1500ff;
+    text-shadow: 2px 3px 3px black;
+  }
   
   h3 {}
   
   p {
     margin: 0;
+    text-decoration: underline;
   }
   
   
@@ -72,16 +82,38 @@ html {
       margin: 0 auto;
     }
   } */
-
-  main {
-    text-align: center;
-    background-image: url(paper.png);
+  .splash-container {
+    background-image: url(./images/backgrounds/knight.jpg);
     background-size: cover;
-    display: grid;
+    display: flex;
     justify-content: center;
-    border-bottom: 3px solid;
-    border-top: 3px dotted;
-    padding: 40px;
+    align-items: center;
+}
+.instruction-header {
+  display: block;
+}
+.game-over {
+  background-image: url(./images/backgrounds/eye-kid.jpg);
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.game-over h1 {
+  text-align: center;
+    font-family: 'Hanalei Fill', cursive;
+    font-size: 8vw;
+    margin: 0;
+    color: #e23434;
+    text-shadow: -2px 11px 0px #241e25;
+    padding: 30px;
+}
+  
+  main {
+
+    width: 100vw;
+    height: 100vh;
   }
   main img {
     max-width: 70%;
@@ -89,10 +121,15 @@ html {
     border: 10px solid black;
     border-radius: 50%;
   }
-  .eye{
-    border: 2px solid;
-    border-top: 4px solid;
+  /* main div {
+    max-width: 70%;
+    box-shadow: 1px 2px 17px 10px #0000008c;
+    border: 10px solid black;
     border-radius: 50%;
+  } */
+  .eye{
+  
+    
     margin: 3px auto;
     padding: 1%;
     max-width: 40%;
@@ -100,7 +137,15 @@ html {
   
   
   
-  
+  button.quit-button {
+    background-color: #E91E63;
+    position: absolute;
+    top: -41px;
+    width: 10%;
+    height: 10px;
+    
+    font-family: 'Press Start 2P', cursive; 
+}
   
   
   /* ---- components ---- */
@@ -116,12 +161,14 @@ html {
     font-family: 'Press Start 2P', cursive;
 }
 
-  
+  .button-container {
+    display: flex;
+    justify-content: center;
+  }
   .btn-instruction {
     background-color: #2b2bda;
     border-radius: 2px;
     align-self: center;
-    width: 30%;
     font-size: 11px;
     margin: 3%;
     padding: 15px;
@@ -143,14 +190,14 @@ html {
     display: none;
     }
 .btn-instruction:hover div{
-        display: inline;
+  display: flex;
         }
   .btn-instruction:hover{
     width: 400px;
     height: 400px;
     position: absolute;
     top: 0;
-    right: 20%;
+    right: 20px;
     padding: 72px;
     padding-top: 15px;
   }
@@ -170,7 +217,12 @@ html {
   }
   
   .instruction-image{
-    max-width: 141px;
+    max-width: 131px;
+    max-height: 46%;
+  }
+  div.images-instructions {
+    display: flex;
+    justify-content: space-around;
   }
   #buttons{
     clear: both;
@@ -181,12 +233,7 @@ html {
   #buttons li{
       padding: 1%;
   }
-  .knight-image-left{
-    float: left;
-  }
-  .knight-image-right{
-      max-width: 10%;
-  }
+ 
   #keyboard {
     color: white;
     padding: 1%;
@@ -204,15 +251,11 @@ html {
     font-family: 'Press Start 2P', cursive;
   }
   
-  canvas{
-      border: 2px solid black;
-      margin: auto;
-      margin-top: 20px;
-  }
+  
   @media screen and (min-width: 900px) {
     .btn-instruction:hover{
-        width: 800px;
-        height: 700px;
+      width: 80vw;
+      height: 100vh;
 
     }
     .btn-instruction:hover a{
