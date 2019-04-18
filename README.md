@@ -10,24 +10,25 @@ As a MVP I will build the game with the objective of finding the right character
 
 ## Backlog
 
-Extra Player
+Extra Player - Done
 
-Poles - Collisions - Play Sound
+Poles - Collisions - Play Sound - Done
 
 computerPlayer falls over if incorrectly stabbed
 
-Player can use Smokebomb to avoid detection
+Player can use Smokebomb to avoid detection -  Done
 
-Animation - sprite - changes when walk or attack - also plays sound
+Animation - sprite - changes when walk or attack - also plays sound - Done
 
-Timer
+Timer - Done
 
-Enter Name - on splash screen
+Enter Name - on splash screen - Done
 
-Sound affects - on attack, fall down, pole walk through, and mystery reveal
+Sound affects - on attack, fall down, pole walk through, and mystery reveal - Done
 
-Light up where winner was before changing screen
-Mobile version
+Light up where winner was before changing screen - Done
+
+Mobile version - Impossible
 
 
 

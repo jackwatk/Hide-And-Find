@@ -18,6 +18,14 @@ function main () {
   var playerName = localStorage.setItem('name1', 'Player 1');
   var playerTwoName = localStorage.setItem('name2', 'Player 2');
   var header2;
+  var enemySelect;
+  var smokeSelect;
+  var timeSelect;
+  var playerOne;
+  var playerTwo;
+  var player1Name;
+  var player2Name;
+
 
   function buildSplash () {
     splashScreen = buildDom(
@@ -48,13 +56,83 @@ function main () {
 
             </a>
             </div>
+            <div class="settings">
+            <label for="enemy-count">How Many Enemies?</label>
+            <select id="enemy-count">
+                <option value="1">--Please choose an option--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+                <option value="13">13</option>
+                <option value="14">14</option>
+                <option value="15">15</option>
+                <option value="16">16</option>
+                <option value="17">17</option>
+                <option value="18">18</option>
+                <option value="19">19</option>
+                <option value="20">20</option>
+                <option value="21">21</option>
+                <option value="22">22</option>
+                <option value="23">23</option>
+                <option value="24">24</option>
+                <option value="25">25</option>
+                <option value="26">26</option>
+                <option value="27">27</option>
+                <option value="28">28</option>
+                <option value="29">29</option>
+                <option value="30">30</option>
+                <option value="31">31</option>
+                <option value="32">32</option>
+                <option value="33">33</option>
+                <option value="34">34</option>
+                <option value="35">35</option>
+                <option value="36">36</option>
+                <option value="37">37</option>
+                <option value="38">38</option>
+                <option value="39">39</option>
+                <option value="100">100</option>
+            </select>
+            <label for="smoke-count">How Many Smoke Bombs?</label>
+            <select id="smoke-count">
+                <option value="1">--Please choose an option--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <label for="time-count">How Long?</label>
+            <select id="time-count">
+                <option value="1">--Please choose an option--</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+            <p>Player one:</p> <input type="text" id="player-one" name="playerOneName"><br>
+            <p>Player two:</p> <input type="text" id="player-two" name="playerTwoName"><br>
+          
+            </div>
             </div>
             </main>`);
 
     document.body.append(splashScreen);
-
+    enemySelect = document.querySelector('#enemy-count');
+    smokeSelect = document.querySelector('#smoke-count');
+    timeSelect = document.querySelector('#time-count');
+    playerOne = document.querySelector('#player-one')
+    playerTwo = document.querySelector('#player-two')
     startButton = document.querySelector('.btn-start');
-
     startButton.addEventListener('click', destroySplash);
   }
   buildSplash();
@@ -82,8 +160,13 @@ function main () {
 
     canvasElement.setAttribute('width', width);
     canvasElement.setAttribute('height', height);
-
-    var game = new Game(canvasElement);
+    const enemyCount = enemySelect.value; 
+    const smokeCount = smokeSelect.value;
+    const time = timeSelect.value;
+    player1Name = playerOne.value;
+    player2Name = playerTwo.value;
+   // const poleCount = poleSelect.value
+    var game = new Game(canvasElement,enemyCount, smokeCount, time);
     game.start();
 
     quitButton = document.querySelector('button');
@@ -108,13 +191,15 @@ function main () {
     header2 = document.querySelector('.winner');
 
     if (winner === 0) {
-      header2.innerText = localStorage.getItem('name1') + ' won!';
+      header2.innerText =  `${player1Name} won!`;
     } else if (winner === 1) {
-      header2.innerText = localStorage.getItem('name2') + ' won!';
+      header2.innerText = `${player2Name} won!`;
     } else if (winner === 2) {
-      header2.innerText = localStorage.getItem('name1') + ' touched all poles!';
+      header2.innerText = `${player1Name} touched all poles!`;
     } else if (winner === 3) {
-      header2.innerText = localStorage.getItem('name2') + ' touched all poles!';
+      header2.innerText = `${player1Name} touched all poles!`;
+    }else if (winner === 4) {
+      header2.innerText = 'Time Ran Out You Cowards!';
     } else {
       header2.innerText = 'You quit :(';
     }

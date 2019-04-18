@@ -43,9 +43,9 @@ class Animation {
     this.spriteSheet.src = 'knight-walk-left.png';
   }
   die (game) {
-    this.imageWidth = 42;
+    this.amountOfFrames = 1;
+    this.imageWidth = 31;
     this.spriteSheet.src = 'knight-death.png';
-    this.amountOfFrames = 10;
   }
   knightAttack (game) {
     this.knightAttacking = true;

@@ -1,22 +1,26 @@
 'use strict';
 
 class Player {
-  constructor (canvasElement, lives) {
+  constructor (canvasElement, smokeCount ) {
     this.x = Math.random() * 650;
     this.y = Math.random() * 400;
     this.canvasElement = canvasElement;
     this.size = 40;
-    this.lives = lives;
+    this.smokeCount = smokeCount;
     this.ctx = this.canvasElement.getContext('2d');
-    this.speed = 1;
+    this.speed = 10;
     this.directionY = 0;
     this.directionX = 0;
     this.runAnimation = new Animation(this.x, this.y);
     this.winner = 0;
     this.chimeCount = 0;
+    this.dying = false;
   }
   // Update Method
   update () {
+    if(this.dying)
+    {this.runAnimation.die()}
+    else {
     if (this.directionX === 1) {
       this.x += this.speed * this.directionX;
     }
@@ -33,6 +37,7 @@ class Player {
 
     this.runAnimation.update(this.x, this.y);
   }
+}
   // Set x axis direction and animate
   setDirectionX (directionX) {
     this.directionX = directionX;
@@ -40,6 +45,8 @@ class Player {
       this.runAnimation.knightWalkLeft();
     } else if (this.directionX === 1) {
       this.runAnimation.knightWalk();
+    } else if (this.directionX === null){
+      this.runAnimation.die()
     } else {
       this.runAnimation.renderKnight();
     }
@@ -51,13 +58,16 @@ class Player {
       this.runAnimation.knightWalkLeft();
     } else if (this.directionY === 1) {
       this.runAnimation.knightWalk();
+    } else if (this.directionX === null){
+      this.runAnimation.die()
     } else {
       this.runAnimation.renderKnight();
     }
   }
+  
   // animate on draw
   draw () {
-    this.runAnimation.draw();
+    !this.isDying ? this.runAnimation.draw() : this.runAnimation.die() && this.runAnimation.draw();
   }
   // detect collision with cp
   collidesWithComputerPlayer (computerPlayer) {

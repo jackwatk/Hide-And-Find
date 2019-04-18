@@ -1,6 +1,7 @@
 'use strict';
 class Game {
-  constructor (canvasElement) {
+  constructor (canvasElement, enemyCount, smokeCount, time, player1Name, player2Name) {
+    
     this.gameIsOver = false;
     this.canvasElement = canvasElement;
     this.ctx = this.canvasElement.getContext('2d');
@@ -13,7 +14,11 @@ class Game {
     this.player = null;
     this.player2 = null;
     this.animation = null;
-    this.computerPlayersAmount = 33;
+    //computer player amount
+    this.computerPlayersAmount = enemyCount;
+    //smoke bomb amount
+    this.smokeCount = smokeCount
+    //pole amounts
     this.polesAmount = 5;
     this.computerPlayers = [];
     this.poles = [];
@@ -28,9 +33,17 @@ class Game {
     this.gameOverCallback = null;
     // smoke bombs
     this.smokeBombs = [];
+    //timer
+    this.time = Number(time) * 60;
+    this.timer = null;
+    //reveal
+    this.reveal=null;
+    this.revealWinner = false;
+    this.winnerIs = null;
   }
 
   start () {
+    
     this.gameIsOver = false;
     this.startLoop();
   }
@@ -45,43 +58,84 @@ class Game {
       this.computerPlayers.push(new ComputerPlayer(this.canvasElement));
     }
     // poles instance
-    for (let i = 0; i < this.polesAmount; i++) {
-    // top left
-      if (i === 0) {
-        this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
-      }
-      // top right
-      if (i === 1) {
-        this.initialPositionPole = {
-          x: 600,
-          y: 40
-        };
-        this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
-      }
-      // bottom left
-      if (i === 2) {
-        this.initialPositionPole = {
-          x: 40,
-          y: 320
-        };
-        this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
-      }
-      // middle
-      if (i === 3) {
-        this.initialPositionPole = {
-          x: 320,
-          y: 200
-        };
-        this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
-      }
-      // bottom right
-      if (i === 4) {
-        this.initialPositionPole = {
-          x: 600,
-          y: 320
-        };
-        this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
-      }
+    if(this.polesAmount === 5){
+      for (let i = 0; i < this.polesAmount; i++) {
+        // top left
+          if (i === 0) {
+            this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+          }
+          // top right
+          if (i === 1) {
+            this.initialPositionPole = {
+              x: 600,
+              y: 40
+            };
+            this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+          }
+          // bottom left
+          if (i === 2) {
+            this.initialPositionPole = {
+              x: 40,
+              y: 320
+            };
+            this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+          }
+          // middle
+          if (i === 3) {
+            this.initialPositionPole = {
+              x: 320,
+              y: 200
+            };
+            this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+          }
+          // bottom right
+          if (i === 4) {
+            this.initialPositionPole = {
+              x: 600,
+              y: 320
+            };
+            this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+          }
+    }} else if(this.polesAmount === 7){
+      for (let i = 0; i < this.polesAmount; i++) {
+        // top left
+          if (i === 0) {
+            this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+          }
+          // top right
+          if (i === 1) {
+            this.initialPositionPole = {
+              x: 600,
+              y: 40
+            };
+            this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+          }
+          // bottom left
+          if (i === 2) {
+            this.initialPositionPole = {
+              x: 40,
+              y: 320
+            };
+            this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+          }
+          // middle
+          if (i === 3) {
+            this.initialPositionPole = {
+              x: 320,
+              y: 200
+            };
+            this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+          }
+          // bottom right
+          if (i === 4) {
+            this.initialPositionPole = {
+              x: 600,
+              y: 320
+            };
+            this.poles.push(new Pole(this.canvasElement, this.initialPositionPole));
+          }
+    }
+    
 
       // button handling for player
       // change to switch
@@ -132,6 +186,8 @@ class Game {
         });
       };
     }
+    
+
   }
 
 // end of Game
@@ -140,18 +196,26 @@ const poleSound = new Audio('pole.wav');
 const attackSound = new Audio('attack.wav');
 const attackSound2 = new Audio('attacking.wav');
 const fallSound = new Audio('fall.wav');
+const smokeSound = new Audio('smoke.wav');
 
 Game.prototype.startLoop = function () {
+  
   // player instance
   // player1
-  this.player = new Player(this.canvasElement);
+  this.player = new Player(this.canvasElement, this.smokeCount);
   // player2
-  this.player2 = new Player(this.canvasElement);
+  this.player2 = new Player(this.canvasElement, this.smokeCount);
+ 
+  //time 
+  this.interval = setInterval(this.handleTime.bind(this),1000);
   // ComputerPlayer instance
   for (var i = 0; i < this.computerPlayersAmount; i++) {
     this.computerPlayers.push(new ComputerPlayer(this.canvasElement));
   }
   // poles instance
+  if(this.polesAmount === 5){
+    
+  }
   for (var i = 0; i < this.polesAmount; i++) {
     // top left
     if (i === 0) {
@@ -239,13 +303,19 @@ Game.prototype.startLoop = function () {
         this.player2.setDirectionY(1);
       }
       if (key === 'p') {
-        this.smokeBombs.push(new Smokebomb(this.canvasElement, this.player.x, this.player.y));
-      }
+      this.player.smokeCount > 0 ? this.smokeBombs.push(new Smokebomb(this.canvasElement, this.player.x, this.player.y)) : null;
+      this.player.smokeCount > 0 ? smokeSound.play() : null;
+      this.player.smokeCount--;
+    }
       if (key === '1') {
-        this.smokeBombs.push(new Smokebomb(this.canvasElement, this.player2.x, this.player2.y));
+        this.player2.smokeCount > 0? this.smokeBombs.push(new Smokebomb(this.canvasElement, this.player2.x, this.player2.y)): null;
+        this.player2.smokeCount > 0 ? smokeSound.play() : null;
+        this.player2.smokeCount--;
+      
       }
     }.bind(this));
   }.bind(this);
+
   // player1
 
   document.addEventListener('keydown', this.handleKey);
@@ -259,8 +329,9 @@ Game.prototype.startLoop = function () {
       attackSound.play();
       this.playersTouching = false;
       fallSound.play();
-      this.player.runAnimation.die();
-      this.dieTimeout = setTimeout(this.finishGame.bind(this), 1000);
+      this.player2.isDying = true;
+      this.showWinner(this.player.x, this.player.y, "player1");
+      this.dieTimeout = setTimeout(this.finishGame.bind(this), 5000);
       if (this.player.DirectionX === -1 || this.player.DirectionY === -1) {
         this.player.runAnimation.knightAttackLeft();
       } else if (this.player.DirectionX === 1 || this.player.DirectionY === 1) {
@@ -293,7 +364,6 @@ Game.prototype.startLoop = function () {
   // back to idle
   document.addEventListener('keyup', this.backToIdle);
 
-  // change to switch
 
   // player 2 attack
   this.handlePlayer2Attack = function (event) {
@@ -303,7 +373,8 @@ Game.prototype.startLoop = function () {
       this.playersTouching = false;
       this.player.runAnimation.die();
       fallSound.play();
-      this.dieTimeout = setTimeout(this.finishGame, 5000);
+      this.showWinner(this.player2.x, this.player2.y, "player2");
+      this.dieTimeout = setTimeout(this.finishGame.bind(this), 5000);
     } else if (event.key === 'z') {
       this.player2.runAnimation.knightAttack();
       attackSound2.play();
@@ -311,8 +382,6 @@ Game.prototype.startLoop = function () {
       this.enemyAttacked = true;
     }
   }.bind(this);
-  // player2
-  // document.addEventListener('keydown', this.handlePlayer2Key);
 
   document.addEventListener('keydown', this.handlePlayer2Attack);
 
@@ -324,10 +393,17 @@ Game.prototype.startLoop = function () {
 
     if (this.player.chimeCount === 5) {
       this.winner = 2;
-      this.finishGame();
+      this.showWinner(this.player.x, this.player.y, "player1");
+      this.dieTimeout = setTimeout(function(){this.finishGame()}.bind(this), 5000);
     }
     if (this.player2.chimeCount === 5) {
       this.winner = 3;
+      this.showWinner(this.player2.x, this.player2.y, "player2");
+      this.dieTimeout = setTimeout(function(){this.finishGame()}.bind(this), 5000);
+    }
+    if(this.time === 0){
+      clearInterval(this.interval)
+      this.winner = 4;
       this.finishGame();
     }
 
@@ -348,7 +424,9 @@ Game.prototype.updateAll = function () {
     computerPlayer.update();
   });
 
-  // poles
+  // reveal
+  this.revealWinner && this.winnerIs === "player1" ? this.reveal.update(this.player.x,this.player.y) : null;
+  this.revealWinner && this.winnerIs === "player2" ? this.reveal.update(this.player2.x,this.player2.y) : null;
 };
 Game.prototype.drawAll = function () {
   // player
@@ -364,6 +442,9 @@ Game.prototype.drawAll = function () {
     pole.draw();
   });
   this.smokeBombs ? this.smokeBombs.forEach((smokebomb) => smokebomb.draw()) : null;
+  this.timer = new Timer(this.canvasElement, this.time);
+  this.timer.draw();
+  this.revealWinner ? this.reveal.draw() : null;
 };
 
 Game.prototype.clearAll = function () {
@@ -375,7 +456,6 @@ Game.prototype.checkAllCollisions = function () {
     if (this.player.collidesWithComputerPlayer(computerPlayer) && this.enemyAttacked) {
       computerPlayer.runAnimation.die();
       this.enemyAttacked = false;
-      console.log('colliding & attacked');
     } else if (this.player.collidesWithComputerPlayer(computerPlayer)) {
       this.playerTouchingComputerPlayer = true;
     } else {
@@ -415,7 +495,16 @@ Game.prototype.finishGame = function () {
   document.removeEventListener('keydown', this.handleAttack);
   document.removeEventListener('keydown', this.handleAttack);
   document.removeEventListener('keyup', this.backToIdle);
-  this.gameOverCallback(this.winner);
+  this.gameOverCallback(this.winner)
 
   this.gameIsOver = true;
-};
+}
+
+Game.prototype.handleTime = function () {
+  this.time--;
+}
+Game.prototype.showWinner = function(winnerX, winnerY, player) {
+  this.winnerIs = player;
+  this.revealWinner = true;
+  this.reveal = new Reveal(this.canvasElement, winnerX,winnerY)
+}

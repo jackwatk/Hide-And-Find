@@ -164,6 +164,7 @@ html {
   .button-container {
     display: flex;
     justify-content: center;
+    padding: 13%;
   }
   .btn-instruction {
     background-color: #2b2bda;
@@ -214,6 +215,26 @@ html {
   .btn-instruction:hover p{
     margin: 10px;
     
+  }
+  label {
+    color: white;
+  }
+  .settings {
+    display: flex;
+    flex-direction: column;
+    height: 14vh;
+    justify-content: space-around;
+    align-items: center;
+    margin: 20px;
+    margin-top: 40px;
+    color: white;
+  }
+  select {
+    background-color: white;
+    border: 0px;
+    width: 32%;
+    height: 4vh;
+    margin: 10px;
   }
   
   .instruction-image{
