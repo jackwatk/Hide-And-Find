@@ -10,14 +10,13 @@ class Reveal {
   }
 
   draw = () => {
-    
-// Draw red rectangle after clip()
   this.canvasElement.style.backgroundColor = '#c9c9c9'
-  this.ctx.drawImage(this.img, this.x - 40 , this.y - 40, this.canvasElement.width, this.canvasElement.height);
+  this.ctx.drawImage(this.img, this.x , this.y, this.size, this.size);
    
   }
   update = (playerX, playerY) => {
     this.x = playerX;
     this.y = playerY;
   }
+  
 }

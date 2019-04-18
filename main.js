@@ -59,7 +59,7 @@ function main () {
             <div class="settings">
             <label for="enemy-count">How Many Enemies?</label>
             <select id="enemy-count">
-                <option value="27">--Please choose an option--</option>
+                <option value="30">--Please choose an option--</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -119,8 +119,8 @@ function main () {
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
-            <p>Player one:</p> <input type="text" id="player-one" name="playerOneName"><br>
-            <p>Player two:</p> <input type="text" id="player-two" name="playerTwoName"><br>
+            <p>Player one:</p> <input type="text" value="player one" id="player-one" name="playerOneName"><br>
+            <p>Player two:</p> <input type="text" value="player two" id="player-two" name="playerTwoName"><br>
           
             </div>
             </div>
