@@ -8,7 +8,7 @@ class Player {
     this.size = 40;
     this.smokeCount = smokeCount;
     this.ctx = this.canvasElement.getContext('2d');
-    this.speed = 10;
+    this.speed = 1;
     this.directionY = 0;
     this.directionX = 0;
     this.runAnimation = new Animation(this.x, this.y);

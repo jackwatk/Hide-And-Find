@@ -40,6 +40,8 @@ class Game {
     this.reveal=null;
     this.revealWinner = false;
     this.winnerIs = null;
+    //death icons
+    this.deathIcons = [];
   }
 
   start () {
@@ -330,6 +332,7 @@ Game.prototype.startLoop = function () {
       this.playersTouching = false;
       fallSound.play();
       this.player2.isDying = true;
+      this.deathIcons.push(new Placeholder(this.canvasElement,this.player2.x, this.player2.y))
       this.showWinner(this.player.x, this.player.y, "player1");
       this.dieTimeout = setTimeout(this.finishGame.bind(this), 5000);
       if (this.player.DirectionX === -1 || this.player.DirectionY === -1) {
@@ -371,7 +374,8 @@ Game.prototype.startLoop = function () {
       this.winner = 1;
       attackSound.play();
       this.playersTouching = false;
-      this.player.runAnimation.die();
+      this.player.isDying = true;
+      this.deathIcons.push(new Placeholder(this.canvasElement,this.player.x, this.player.y))
       fallSound.play();
       this.showWinner(this.player2.x, this.player2.y, "player2");
       this.dieTimeout = setTimeout(this.finishGame.bind(this), 5000);
@@ -445,6 +449,7 @@ Game.prototype.drawAll = function () {
   this.timer = new Timer(this.canvasElement, this.time);
   this.timer.draw();
   this.revealWinner ? this.reveal.draw() : null;
+  this.deathIcons.forEach((icon) => icon.draw());
 };
 
 Game.prototype.clearAll = function () {

@@ -59,7 +59,7 @@ function main () {
             <div class="settings">
             <label for="enemy-count">How Many Enemies?</label>
             <select id="enemy-count">
-                <option value="1">--Please choose an option--</option>
+                <option value="27">--Please choose an option--</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -112,7 +112,7 @@ function main () {
             </select>
             <label for="time-count">How Long?</label>
             <select id="time-count">
-                <option value="1">--Please choose an option--</option>
+                <option value="3">--Please choose an option--</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
