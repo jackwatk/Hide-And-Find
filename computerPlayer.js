@@ -54,7 +54,7 @@ class ComputerPlayer {
     return possibleDirections[randomIndex];
   }
   draw () {
-    this.runAnimation.draw();
+  this.dying ? this.runAnimation.die() : this.runAnimation.draw();
   }
   randomDecider () {
     let randomNumber = Math.floor(Math.random() * 4);

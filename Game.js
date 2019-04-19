@@ -42,6 +42,7 @@ class Game {
     this.winnerIs = null;
     //death icons
     this.deathIcons = [];
+    this.canAttack=true;
   }
 
   start () {
@@ -325,14 +326,17 @@ Game.prototype.startLoop = function () {
   document.addEventListener('keydown', this.handleAttack);
 
   this.handleAttack = function (event) {
+    if(this.canAttack){
+    
     // attack player
     if (event.key === 'l' && this.playersTouching) {
       this.winner = 0;
+      this.canAttack=false;
       attackSound.play();
       this.playersTouching = false;
       fallSound.play();
       this.player2.isDying = true;
-      this.deathIcons.push(new Placeholder(this.canvasElement,this.player2.x, this.player2.y))
+      this.deathIcons.push(new Placeholder(this.canvasElement,this.player2.x, this.player2.y, true))
       this.showWinner(this.player.x, this.player.y, "player1");
       this.dieTimeout = setTimeout(this.finishGame.bind(this), 5000);
       if (this.player.DirectionX === -1 || this.player.DirectionY === -1) {
@@ -343,6 +347,7 @@ Game.prototype.startLoop = function () {
     } else if (event.key === 'l' && this.playerTouchingComputerPlayer) {
       this.enemyAttacked = true;
       attackSound2.play();
+      
       if (this.player.DirectionX === -1 || this.player.DirectionY === -1) {
         this.player.runAnimation.knightAttackLeft();
       } else if (this.player.DirectionX === 1 || this.player.DirectionY === 1) {
@@ -359,6 +364,7 @@ Game.prototype.startLoop = function () {
         this.player.runAnimation.knightAttack();
       }
     }
+  }
   }.bind(this);
 
   // player1
@@ -370,12 +376,14 @@ Game.prototype.startLoop = function () {
 
   // player 2 attack
   this.handlePlayer2Attack = function (event) {
+    if(this.canAttack){
     if (event.key === 'z' && this.playersTouching) {
+      this.canAttack=false;
       this.winner = 1;
       attackSound.play();
       this.playersTouching = false;
       this.player.isDying = true;
-      this.deathIcons.push(new Placeholder(this.canvasElement,this.player.x, this.player.y))
+      this.deathIcons.push(new Placeholder(this.canvasElement,this.player.x, this.player.y, true))
       fallSound.play();
       this.showWinner(this.player2.x, this.player2.y, "player2");
       this.dieTimeout = setTimeout(this.finishGame.bind(this), 5000);
@@ -385,6 +393,7 @@ Game.prototype.startLoop = function () {
     } else if (event.key === 'z' && this.collidedEnemy) {
       this.enemyAttacked = true;
     }
+  }
   }.bind(this);
 
   document.addEventListener('keydown', this.handlePlayer2Attack);
