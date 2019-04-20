@@ -34,7 +34,7 @@ class Game {
     // smoke bombs
     this.smokeBombs = [];
     //timer
-    this.time = Number(time) * 60;
+    this.time = parseInt(time, 10) * 60;
     this.timer = null;
     //reveal
     this.reveal=null;
@@ -43,6 +43,8 @@ class Game {
     //death icons
     this.deathIcons = [];
     this.canAttack=true;
+    //attack circles
+    this.attackCircles = [];
   }
 
   start () {
@@ -330,6 +332,7 @@ Game.prototype.startLoop = function () {
     
     // attack player
     if (event.key === 'l' && this.playersTouching) {
+      
       this.winner = 0;
       this.canAttack=false;
       attackSound.play();
@@ -347,6 +350,7 @@ Game.prototype.startLoop = function () {
     } else if (event.key === 'l' && this.playerTouchingComputerPlayer) {
       this.enemyAttacked = true;
       attackSound2.play();
+      this.attackCircles.push(new AttackCircle(this.canvasElement,this.player.x, this.player.y,"player1"))
       
       if (this.player.DirectionX === -1 || this.player.DirectionY === -1) {
         this.player.runAnimation.knightAttackLeft();
@@ -356,6 +360,7 @@ Game.prototype.startLoop = function () {
     }
     // missed attack
     else if (event.key === 'l') {
+      this.attackCircles.push(new AttackCircle(this.canvasElement,this.player.x, this.player.y,"player1"))
       this.player.runAnimation.knightAttack();
       attackSound2.play();
       if (this.player.DirectionX === -1 || this.player.DirectionY === -1) {
@@ -388,9 +393,11 @@ Game.prototype.startLoop = function () {
       this.showWinner(this.player2.x, this.player2.y, "player2");
       this.dieTimeout = setTimeout(this.finishGame.bind(this), 5000);
     } else if (event.key === 'z') {
+      this.attackCircles.push(new AttackCircle(this.canvasElement,this.player2.x, this.player2.y,"player2"))
       this.player2.runAnimation.knightAttack();
       attackSound2.play();
     } else if (event.key === 'z' && this.collidedEnemy) {
+      this.attackCircles.push(new AttackCircle(this.canvasElement,this.player2.x, this.player2.y,"player2"))
       this.enemyAttacked = true;
     }
   }
@@ -459,6 +466,8 @@ Game.prototype.drawAll = function () {
   this.timer.draw();
   this.revealWinner ? this.reveal.draw() : null;
   this.deathIcons.forEach((icon) => icon.draw());
+  this.attackCircles.forEach((circle) => 
+    circle.belongsTo === "player1" ? circle.draw(this.player.x,this.player.y) : circle.draw(this.player2.x, this.player2.y));
 };
 
 Game.prototype.clearAll = function () {

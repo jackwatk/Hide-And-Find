@@ -25,9 +25,13 @@ function main () {
   var playerTwo;
   var player1Name;
   var player2Name;
+  var music = new Audio()
+  music.src = "music.wav"
 
 
   function buildSplash () {
+    music.play();
+ 
     splashScreen = buildDom(
       `<main class="splash-container">
             <div class = "container">
@@ -59,7 +63,7 @@ function main () {
             <div class="settings">
             <label for="enemy-count">How Many Enemies?</label>
             <select id="enemy-count">
-                <option value="30">--Please choose an option--</option>
+                <option value="38">--Please choose an option--</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -99,6 +103,17 @@ function main () {
                 <option value="37">37</option>
                 <option value="38">38</option>
                 <option value="39">39</option>
+                <option value="40">40</option>
+                <option value="41">41</option>
+                <option value="42">42</option>
+                <option value="43">43</option>
+                <option value="44">44</option>
+                <option value="45">45</option>
+                <option value="46">46</option>
+                <option value="47">47</option>
+                <option value="48">48</option>
+                <option value="49">49</option>
+                <option value="50">50</option>
                 <option value="100">100</option>
             </select>
             <label for="smoke-count">How Many Smoke Bombs?</label>
@@ -112,7 +127,7 @@ function main () {
             </select>
             <label for="time-count">How Long?</label>
             <select id="time-count">
-                <option value="3">--Please choose an option--</option>
+                <option value="1">--Please choose an option--</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -124,6 +139,7 @@ function main () {
           
             </div>
             </div>
+            <iframe src="music.wav" allow="autoplay" style="display:none" id="iframeAudio"></iframe> 
             </main>`);
 
     document.body.append(splashScreen);
@@ -139,6 +155,8 @@ function main () {
 
   function destroySplash () {
     splashScreen.remove();
+    music.pause();
+    music.currentTime = 0;
     startButton.removeEventListener('click', destroySplash);
     buildGameScreen();
   }
@@ -147,7 +165,8 @@ function main () {
     gameScreen = buildDom(
       `<main>     
         <canvas></canvas> 
-        <button class="quit-button">Quit</button>  
+        <button class="quit-button">Quit</button>
+          
       </main>`);
 
     document.body.append(gameScreen);
@@ -186,6 +205,10 @@ function main () {
             <h1>Game over!</h1> 
             <h2 class="winner"></h2>
             <button>Restart</button>  
+            <iframe src="silence.wav" allow="autoplay" style="display:none" id="iframeAudio"></iframe> 
+            <audio id="player" autoplay loop>
+            <source src="laughing.mp3" type="audio/mp3">
+            </audio>
           </main>`);
     document.body.append(gameOverScreen);
     header2 = document.querySelector('.winner');

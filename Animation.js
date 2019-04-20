@@ -60,7 +60,7 @@ class Animation {
     if (this.knightAttacking) {
       this.imageWidth = 42;
       this.spriteSheet.src = 'knight-attacking.png';
-      this.amountOfFrames = 8;
+      this.amountOfFrames = 9;
     } else {
       this.renderKnight();
     }
