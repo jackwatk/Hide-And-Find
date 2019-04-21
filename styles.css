@@ -272,7 +272,9 @@ html {
     font-family: 'Press Start 2P', cursive;
   }
   
-  
+  .shooter-game {
+   cursor: none;
+  }
   @media screen and (min-width: 900px) {
     .btn-instruction:hover{
       width: 80vw;

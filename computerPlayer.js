@@ -39,11 +39,14 @@ class ComputerPlayer {
     this.directionX = this.getRandomDirection();
     if (this.directionY === -1 || this.directionX === -1) {
       this.runAnimation.knightWalkLeft();
+     
     } else if (this.directionY === 1 || this.directionX === 1) {
       this.runAnimation.knightWalk();
+
     } else if (this.directionY === 3) {
       this.runAnimation.die();
     } else {
+  
       this.runAnimation.renderKnight();
     }
   }

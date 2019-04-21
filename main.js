@@ -25,6 +25,7 @@ function main () {
   var playerTwo;
   var player1Name;
   var player2Name;
+  var shooterButton;
   var music = new Audio()
   music.src = "music.wav"
 
@@ -134,6 +135,7 @@ function main () {
                 <option value="4">4</option>
                 <option value="5">5</option>
             </select>
+            <button class="shooter-game-button">Play Shooter</button>
             <p>Player one:</p> <input type="text" value="player one" id="player-one" name="playerOneName"><br>
             <p>Player two:</p> <input type="text" value="player two" id="player-two" name="playerTwoName"><br>
           
@@ -146,10 +148,16 @@ function main () {
     enemySelect = document.querySelector('#enemy-count');
     smokeSelect = document.querySelector('#smoke-count');
     timeSelect = document.querySelector('#time-count');
+
     playerOne = document.querySelector('#player-one')
     playerTwo = document.querySelector('#player-two')
+
     startButton = document.querySelector('.btn-start');
     startButton.addEventListener('click', destroySplash);
+
+    shooterButton = document.querySelector('.shooter-game-button');
+    shooterButton.addEventListener('click', buildShooterGame);
+
   }
   buildSplash();
 
@@ -158,9 +166,36 @@ function main () {
     music.pause();
     music.currentTime = 0;
     startButton.removeEventListener('click', destroySplash);
+    shooterButton.removeEventListener('click', buildShooterGame);
     buildGameScreen();
   }
 
+  function buildShooterGame () {
+    console.log('here')
+    splashScreen.remove();
+    music.pause();
+    music.currentTime = 0;
+    startButton.removeEventListener('click', destroySplash);
+    gameScreen = buildDom(
+      `<main>     
+        <canvas class= "shooter-game"></canvas> 
+        <button class="quit-button">Quit</button>
+          
+      </main>`);
+      document.body.append(gameScreen);
+      const gameContainerElement = document.querySelector('main');
+  
+      const width = gameContainerElement.offsetWidth;
+      const height = gameContainerElement.offsetHeight;
+  
+      const canvas = document.querySelector('canvas');
+      canvas.setAttribute('width', width);
+      canvas.setAttribute('height', height);
+      const shooterGame = new ShootingGame(canvas);
+      shooterGame.gameOverPassCallBack(destroyGameScreen);
+      shooterGame.startLoop();
+
+  }
   function buildGameScreen () {
     gameScreen = buildDom(
       `<main>     
@@ -223,6 +258,10 @@ function main () {
       header2.innerText = `${player1Name} touched all poles!`;
     }else if (winner === 4) {
       header2.innerText = 'Time Ran Out You Cowards!';
+    }else if (winner === 5) {
+      header2.innerText = 'Shooter Won!';
+    }else if (winner === 6) {
+      header2.innerText = 'Hider Won!';
     } else {
       header2.innerText = 'You quit :(';
     }

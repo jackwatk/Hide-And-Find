@@ -68,6 +68,7 @@ class Animation {
 
     clearTimeout(this.timeOutId);
   }
+ 
   update (x, y) {
     this.playerX = x;
     this.playerY = y;
