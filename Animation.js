@@ -28,10 +28,12 @@ class Animation {
       }
     }
   }
+  // ============== BROWN ============== ///
   renderKnight (game) {
     this.amountOfFrames = 3;
     this.spriteSheet.src = 'knight-idle.png';
   }
+
   // walk right
   knightWalk (game) {
     this.amountOfFrames = 3;
@@ -68,7 +70,39 @@ class Animation {
 
     clearTimeout(this.timeOutId);
   }
- 
+  // ============== BLUE ============== ///
+  renderKnightBlue (game) {
+    this.amountOfFrames = 3;
+    this.spriteSheet.src = 'images/knights/blue/knight-idle-blue.png';
+  }
+
+  knightWalkBlue (game) {
+    this.amountOfFrames = 3;
+    this.spriteSheet.src = 'images/knights/blue/knight-walk-blue.png';
+  }
+  knightWalkLeftBlue (game) {
+    this.amountOfFrames = 3;
+    this.imageWidth = 42;
+    this.spriteSheet.src = 'images/knights/blue/knight-walk-left-blue.png';
+  }
+
+  // ============== WHITE ============== ///
+  renderKnightWhite (game) {
+    this.amountOfFrames = 3;
+    this.spriteSheet.src = 'images/knights/white/knight-idle-white.png';
+  }
+
+  knightWalkWhite (game) {
+    this.amountOfFrames = 3;
+    this.spriteSheet.src = 'images/knights/white/knight-walk-white.png';
+  }
+  knightWalkLeftWhite (game) {
+    this.amountOfFrames = 3;
+    this.imageWidth = 42;
+    this.spriteSheet.src = 'images/knights/white/knight-walk-left-white.png';
+  }
+
+
   update (x, y) {
     this.playerX = x;
     this.playerY = y;

@@ -14,6 +14,10 @@ class Shooter {
     this.img.src = 'shootingGame/scope.png';
     this.runAnimation = new Animation(this.x,this.y);
     this.isHidden = false;
+    this.colorOptions = ['white','blue','brown'];
+    this.randomPick = Math.floor(Math.random() * 3);
+    this.color = this.colorOptions[this.randomPick];
+
     
   }
   draw = () => {
@@ -23,8 +27,14 @@ class Shooter {
   update = () => {
     this.x = this.x + this.directionX * this.speed;
     this.y = this.y + this.directionY * this.speed;
-    this.isHidden ? this.updateBrown() : null;
-  }
+    if(this.isHidden){
+      this.color === 'brown' ? this.updateBrown() : null;
+      this.color === 'blue' ? this.updateBlue() : null;
+      this.color === 'white' ? this.updateWhite() : null;
+
+      }
+    } 
+
   updateBrown = () => {
     if(this.isHidden){
       if (this.directionY === -1 || this.directionX === -1) {
@@ -35,6 +45,36 @@ class Shooter {
         this.runAnimation.die()
       } else {
         this.runAnimation.renderKnight();
+      }
+      this.runAnimation.update(this.x, this.y);
+    }
+  }
+  updateBlue = () => {
+    //to do
+    if(this.isHidden){
+      if (this.directionY === -1 || this.directionX === -1) {
+        this.runAnimation.knightWalkLeftBlue();
+      } else if (this.directionY === 1 || this.directionX === 1) {
+        this.runAnimation.knightWalkBlue();
+      } else if (this.directionX === null){
+        this.runAnimation.die()
+      } else {
+        this.runAnimation.renderKnightBlue();
+      }
+      this.runAnimation.update(this.x, this.y);
+    }
+  }
+  updateWhite = () => {
+    //to do
+    if(this.isHidden){
+      if (this.directionY === -1 || this.directionX === -1) {
+        this.runAnimation.knightWalkLeftWhite();
+      } else if (this.directionY === 1 || this.directionX === 1) {
+        this.runAnimation.knightWalkWhite();
+      } else if (this.directionX === null){
+        this.runAnimation.die()
+      } else {
+        this.runAnimation.renderKnightWhite();
       }
       this.runAnimation.update(this.x, this.y);
     }
@@ -60,7 +100,7 @@ class HiddenPlayer extends Shooter {
     this.x = Math.random() * this.canvas.width - this.size / 2;
     this.y = Math.random() * this.canvas.height - this.size / 2;
     this.size = 40;
-    this.speed = 1.8;
+    this.speed = 1;
     this.img.src = "shootingGame/animations/single-blob.png"
     this.isHidden = true;
     }
